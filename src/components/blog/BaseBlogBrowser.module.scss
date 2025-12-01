@@ -17,6 +17,20 @@
 			flex-direction: row;
 			gap: var(--inner-void-gap);
 			width: 100%;
+
+			.rss {
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #e76317;
+				color: #FFF;
+				aspect-ratio: 1;
+
+				&:is(:hover, :focus-visible) {
+					background-color: #f37933;
+				}
+			}
 		}
 
 		.searchIndicator {

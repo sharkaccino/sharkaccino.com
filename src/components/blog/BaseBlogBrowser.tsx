@@ -8,6 +8,7 @@ import GridArticle from "./GridArticle";
 import ListArticle from "./ListArticle";
 import BlogPost from "./BlogPost";
 import style from "./BaseBlogBrowser.module.scss";
+import SVGIcon from "../SVGIcon";
 
 // TODO: mobile support
 
@@ -68,6 +69,13 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
     >
   		<aside class="contentBox">
   			<div class={style.hbox}>
+          <a 
+            href="blog/rss.xml" 
+            title="subscribe via RSS"
+            class={style.rss}
+          >
+            <SVGIcon src="/icons/rss.svg"/>
+          </a>
           <SearchForm />
     			<ViewMode/>
         </div>
