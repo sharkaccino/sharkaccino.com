@@ -1,0 +1,111 @@
+.form {
+	display: flex;
+	flex-direction: row;
+	gap: var(--inner-void-gap);
+	margin-right: calc(var(--inner-void-gap) * 2);
+}
+
+.searchBar {
+	width: 100%;
+	max-width: 20rem;
+	position: relative;
+
+	input[type="search"] {
+		width: 100%;
+		background-color: var(--secondary-box-bg);
+		color: var(--text);
+		padding: 0.5rem 0.75rem;
+		padding-right: calc(24px + (0.5rem) * 2);
+		height: 100%;
+		font-size: 1rem;
+		border: none;
+
+		&:is(:hover, :focus-visible) {
+			background-color: var(--secondary-box-bg-hover);
+
+			&:has(input:checked) {
+				background-color: var(--trim-hover);
+			}
+		}
+	}
+
+	.searchIcon {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		margin-right: 0.5rem;
+		transform: translateY(-50%);
+		opacity: 0.5;
+		pointer-events: none;
+	}
+}
+
+.sortMode {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: var(--inner-void-gap);
+	user-select: none;
+
+	span {
+		width: max-content;
+	}
+
+	select {
+		background-color: var(--secondary-box-bg);
+		color: currentColor;
+		padding: 0.5rem 0.75rem;
+		font-size: 1rem;
+		border: none;
+		appearance: none;
+		height: 100%;
+		padding-right: calc(24px + (0.5rem * 2));
+		flex: 1;
+
+		&:is(:hover, :focus-visible) {
+			background-color: var(--secondary-box-bg-hover);
+		}
+	}
+
+	.arrow {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		margin-right: 0.5rem;
+		transform: translateY(-50%);
+		opacity: 0.5;
+		pointer-events: none;
+	}
+}
+
+.submit {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--secondary-box-bg);
+	width: auto;
+	height: 100%;
+	aspect-ratio: 1;
+
+	&:has(input:disabled) {
+		// background-color: transparent;
+		opacity: 0.33;
+	}
+
+	&:has(input:not(:disabled)) {
+		&:is(:hover, :has(input:focus-visible)) {
+			background-color: var(--secondary-box-bg-hover);
+		}
+	}
+
+	input {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		appearance: none;
+		background-color: transparent;
+		border: none;
+		color: transparent;
+	}
+}

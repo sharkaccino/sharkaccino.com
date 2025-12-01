@@ -1,10 +1,8 @@
-import { type Component, createEffect, createSignal, For, Show } from "solid-js";
-import compare from 'string-comparison';
+import { type Component, createSignal, For, Show } from "solid-js";
 import { RandomStringinator } from "../../util/randomString";
 import { type PostData } from "../../util/blogPostTools";
-import { viewMode, sortMode, query, searchState, searchDelayActive } from "../../state/blogBrowserStateManager";
-import SearchBar from "./SearchBar";
-import SortMode from "./SortMode";
+import { viewMode } from "../../state/blogBrowserStateManager";
+import SearchForm from "../SearchForm";
 import ViewMode from "./ViewMode";
 import GridArticle from "./GridArticle";
 import ListArticle from "./ListArticle";
@@ -17,16 +15,9 @@ import style from "./BaseBlogBrowser.module.scss";
 
 // TODO: reduce grid columns on smaller displays
 
-const BlogBrowser: Component<{ postData: PostData[] }> = (props) => {
-  const [ getSearchState, setSearchState ] = searchState;
-  const [ getSearchDelayActive, setSearchDelayActive ] = searchDelayActive;
-  const [ getQuery, setQuery ] = query;
-  const [ getSortMode, setSortMode ] = sortMode;
+const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
   const [ getViewMode, setViewMode ] = viewMode;
-  const [ getPosts, setPosts ] = createSignal(props.postData);
-
-  const exactrgx = /(?<!\w:)"(.+?)"/g
-  const keywordrgx = /(\w+?):"(.+?)"/g
+  const [ getPosts, setPosts ] = createSignal<PostData[]>([]);
 
   const noResultStrings = [
     `no results found`,
@@ -40,146 +31,53 @@ const BlogBrowser: Component<{ postData: PostData[] }> = (props) => {
 
   const stringinator = new RandomStringinator(noResultStrings);
 
-  const acquireTargets = (post: PostData) => {
-    const output = [
-      post.data.title,
-      post.data.pubDate.toUTCString()
-    ];
+  if (props.postData != null) {
+    setPosts(props.postData);
+  } else {
+    console.debug(window.location.search);
+    fetch(`/api/blog/posts${window.location.search}`).then(async (response) => {
+      const posts: PostData[] = await response.json();
 
-    if (post.body) {
-      output.push(post.body);
-    }
+      // quick data validation
+      // dates are not entirely serializable,
+      // they only come in as numbers or strings
+      for (const i in posts) {
+        posts[i].data.pubDate = new Date(posts[i].data.pubDate);
 
-    if (post.data.editDate) {
-      output.push(post.data.editDate.toUTCString());
-    }
-
-    if (post.data.tags) {
-      output.push(...post.data.tags);
-    }
-
-    return output;
-  };
-
-  const refreshResults = () => {
-    let updatedPosts = [...props.postData] as PostData[];
-
-    const query = getQuery();
-    let comparisonData: any = {};
-
-    if (query.length > 0) {
-      // filter posts for exact string matching
-      for (const match of [...query.matchAll(exactrgx)]) {
-        const extractedString = match[1];
-
-        updatedPosts = updatedPosts.filter((post) => {
-          const targets = acquireTargets(post);
-
-          for (const str of targets) {
-            if (str.includes(extractedString)) return true;
-          }
-        });
-      }
-
-      // filter posts for keywords
-      for (const match of [...query.matchAll(keywordrgx)]) {
-        const keyword = match[1].toLowerCase();
-        const value = match[2].toLowerCase();
-
-        if ([`tag`, `tagged`, `tags`].includes(keyword)) {
-          updatedPosts = updatedPosts.filter((post) => {
-            if (post.data.tags == null) return false;
-
-            for (const tag of post.data.tags) {
-              if (tag.toLowerCase() === value) return true;
-            }
-
-            return false;
-          });
+        if (posts[i].data.editDate != null) {
+          posts[i].data.editDate = new Date(posts[i].data.editDate);
         }
       }
 
-      // compile fuzzy match data
-      for (const post of updatedPosts) {
-        let match = 0;
-        
-        const targets = acquireTargets(post);
-
-        for (const target of targets) {
-          const result = compare.diceCoefficient.similarity(query, target);
-          match += result;
-        }
-
-        comparisonData[post.id] = match;
-      }
-
-      // final filter to remove almost entirely irrelevant results
-      updatedPosts = updatedPosts.filter((post) => {
-        return (comparisonData[post.id] > 0.005) 
-      });
-
-      // console.debug(comparisonData);
-    }
-
-    switch (getSortMode()) {
-      case `relevance`:
-        if (query.length > 0) {
-          updatedPosts.sort((a, b) => {
-            const aData = comparisonData[a.id];
-            const bData = comparisonData[b.id];
-
-            return bData - aData;
-          });
-
-          break;
-        }
-
-        // "relevance" defaults to "newest first" when there is no search query entered
-      case `newFirst`:
-        updatedPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
-        break;
-      case `oldFirst`:
-        updatedPosts.sort((a, b) => a.data.pubDate.getTime() - b.data.pubDate.getTime());
-        break;
-    }
-
-    setPosts(updatedPosts);
+      setPosts(posts);
+      console.debug(posts);
+    });
   }
 
-  createEffect(() => {
-    refreshResults();
-    stringinator.refresh();
-  });
-
-  refreshResults();
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchParams = urlParams.get(`search`);
 
   return (
     <div
-      classList={{ 
-        "large": getViewMode() == `grid`,
-        "medium": getViewMode() == `list`,
-        "small": getViewMode() == `dash`
-      }} 
       class={style.browser}
+      classList={{ 
+        "large": getViewMode() === `grid`,
+        "medium": getViewMode() === `list`,
+        "small": getViewMode() === `dash`
+      }} 
     >
   		<aside class="contentBox">
   			<div class={style.hbox}>
-          <SearchBar/>
-    			<SortMode/>
+          <SearchForm />
     			<ViewMode/>
         </div>
         <div 
           classList={{
-            [style.active]: getSearchState() === true
+            [style.active]: searchParams != null
           }}
           class={style.searchIndicator}
         >
-          <Show when={getSearchDelayActive()}>
-            <h2>searching...</h2>
-          </Show>
-          <Show when={getSearchDelayActive() === false}>
-            <h2>search results:</h2>
-          </Show>
+          <h2>search results:</h2>
         </div>
   		</aside>
 
@@ -208,10 +106,10 @@ const BlogBrowser: Component<{ postData: PostData[] }> = (props) => {
           }}
         </For>
         <div 
+          class={style.listEndCap}
           classList={{
             "contentBox": getViewMode() !== `grid`
           }}
-          class={style.listEndCap}
         >
           <Show when={getPosts().length > 0}>
             <h2 class={style.endOfPosts}>
