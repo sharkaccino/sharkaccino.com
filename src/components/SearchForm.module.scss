@@ -83,19 +83,21 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--secondary-box-bg);
+	background-color: var(--trim);
+	color: var(--box-bg);
 	width: auto;
 	height: 100%;
 	aspect-ratio: 1;
 
 	&:has(input:disabled) {
-		// background-color: transparent;
+		background-color: var(--secondary-box-bg);
+		color: var(--text);
 		opacity: 0.33;
 	}
 
 	&:has(input:not(:disabled)) {
 		&:is(:hover, :has(input:focus-visible)) {
-			background-color: var(--secondary-box-bg-hover);
+			background-color: var(--trim-hover);
 		}
 	}
 
