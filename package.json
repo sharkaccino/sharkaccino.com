@@ -2,7 +2,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "preprocess": "node ./preprocess/index.mjs",
+    "preprocess": "node ./getBuildInfo.mjs",
     "dev": "pnpm preprocess & astro dev",
     "build": "pnpm preprocess & astro build",
     "preview": "pnpm preprocess & astro preview",
