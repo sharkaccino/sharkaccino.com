@@ -19,11 +19,14 @@
   	}
   }
 
-  > a {
+  .title {
   	width: 100%;
   	overflow-wrap: anywhere;
-  	margin: 0;
 		color: var(--text);
+
+		h1 {
+			margin: 0;
+		}
   }
 
   .timestampBlock {
@@ -85,4 +88,25 @@
 			}
   	}
   }
+
+	.shelf {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		height: calc(var(--inner-void-gap) * 3);
+		margin-top: calc(var(--edge-pad) / 2);
+
+		button {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			gap: calc(var(--inner-void-gap) / 2);
+			height: 100%;
+			appearance: none;
+			border: none;
+			padding: calc(((var(--inner-void-gap) * 3) - 24px) / 2);
+		}
+	}
 }

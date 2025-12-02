@@ -2,8 +2,11 @@ import { type Component, For, Show } from "solid-js";
 import { getSimplifiedDate } from "../../util/dateTools";
 import { getPostUrl, type PostData } from "../../util/blogPostTools";
 import style from "./BlogPost.module.scss";
+import SVGIcon from "../SVGIcon";
 
-// TODO: fix image height on smaller displays
+// TODO: mobile support
+
+// TODO: like and share buttons
 
 const BlogPost: Component<{ postData: PostData }> = (props) => {
   const post = props.postData;
@@ -28,7 +31,7 @@ const BlogPost: Component<{ postData: PostData }> = (props) => {
       		<img src={post.data.imageUrl} loading="lazy"/>
       	</div>
       </Show>
-      <a href={postUrl}>
+      <a href={postUrl} class={style.title}>
         <h1>{post.data.title}</h1>
       </a>
       <div class={style.timestampBlock}>
@@ -68,6 +71,15 @@ const BlogPost: Component<{ postData: PostData }> = (props) => {
           </For>
       	</ul>
       </Show>
+      <div class={style.shelf}>
+        <button>
+					<SVGIcon src="/icons/heart.svg" />
+          <span>1234</span>
+				</button>
+  			<button>
+  				<SVGIcon src="/icons/share.svg" />
+  			</button>
+      </div>
     </div>
   )
 }

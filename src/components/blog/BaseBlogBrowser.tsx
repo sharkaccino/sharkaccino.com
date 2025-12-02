@@ -64,6 +64,8 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
   const urlParams = new URLSearchParams(window.location.search);
   const searchParams = urlParams.get(`search`);
 
+  window.sessionStorage.setItem(`returnPage`, window.location.toString());
+
   return (
     <div
       class={style.browser}

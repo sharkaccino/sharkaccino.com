@@ -135,3 +135,11 @@ a {
 code {
   font-size: 1rem;
 }
+
+button {
+  background-color: var(--secondary-box-bg);
+
+	&:is(:hover, :focus-visible) {
+		background-color: var(--secondary-box-bg-hover);
+	}
+}

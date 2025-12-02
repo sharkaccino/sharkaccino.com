@@ -1,7 +1,6 @@
 ---
 import { type GetStaticPaths } from "astro";
 import { getCollection } from 'astro:content';
-import { Show } from "solid-js";
 import Base from '../../../../../Base.astro';
 import BlogPost from "../../../../../components/blog/BlogPost";
 import { getUTCDateComponents } from '../../../../../util/dateTools';
@@ -11,6 +10,8 @@ import { getPostUrl } from "../../../../../util/blogPostTools";
 // TODO: custom embed/opengraph content
 
 // TODO: add button to return to post list
+
+// TODO: return button component
 
 export const getStaticPaths = (async () => {
 	const posts = await getCollection(`blog`);
@@ -24,8 +25,8 @@ export const getStaticPaths = (async () => {
 		const pubDate: Date = post.data.pubDate;
 		const dc = getUTCDateComponents(pubDate);
 
-		let prevURL = null;
-		let nextURL = null;
+		let prevURL;
+		let nextURL;
 
 		const prevPost = posts[i-1];
 		const nextPost = posts[i+1];
@@ -46,11 +47,7 @@ export const getStaticPaths = (async () => {
 				day: dc.day
 			},
 			props: {
-				post,
-				postIndex: posts.length - i,
-				totalPosts: posts.length,
-				prevURL: prevURL,
-				nextURL: nextURL
+				post
 			}
 		});
 	}
@@ -58,67 +55,36 @@ export const getStaticPaths = (async () => {
 	return output;
 }) satisfies GetStaticPaths;
 
-const { post, postIndex, totalPosts, prevURL, nextURL } = Astro.props;
+const { post } = Astro.props;
 
 ---
 
 <Base title={post.data.title}>
 	<div class="small">
+		<aside class="contentBox">
+			<a href="/blog">
+				<SVGIcon src="/icons/chevron-left.svg" />
+				return to list
+			</a>
+		</aside>
 		<main>
 			<BlogPost postData={post} />
 		</main>
-		<nav>
-			<Show when={prevURL != null}>
-				<a 
-					class="prevButton contentBox" 
-					href={prevURL} 
-					aria-label="Previous Post"
-				>
-					<SVGIcon src="/icons/chevron-left.svg" />
-				</a>
-			</Show>
-			
-			<span class="index contentBox">{postIndex} / {totalPosts}</span>
-
-			<Show when={nextURL != null}>
-				<a 
-					class="nextButton contentBox" 
-					href={nextURL} 
-					aria-label="Next Post"
-				>
-					<SVGIcon src="/icons/chevron-right.svg" />
-				</a>
-			</Show>
-		</nav>
 	</div>
 </Base>
 
 <style lang="scss">
-	nav {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
-		justify-content: space-between;
-		margin-top: var(--inner-void-gap);
-	}
-	.prevButton, .nextButton {
+	aside {
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 10rem;
-	}
+		margin-bottom: var(--inner-void-gap);
+		padding: calc(var(--edge-pad) / 4);
 
-	.prevButton {
-		grid-column: 1;
-	}
-
-	.index {
-		grid-column: 2;
-		justify-self: center;
-		padding: 1rem;
-	}
-
-	.nextButton {
-		grid-column: 3;
-		justify-self: flex-end;
+		a {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: calc(var(--inner-void-gap) / 2);
+			padding: calc(var(--edge-pad) / 4);
+		}
 	}
 </style>
