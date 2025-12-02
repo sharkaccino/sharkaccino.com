@@ -20,6 +20,11 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
   const [ getViewMode, setViewMode ] = viewMode;
   const [ getPosts, setPosts ] = createSignal<PostData[]>([]);
 
+  const vmSelect = window.localStorage.getItem(`blogLayout`);
+  if (vmSelect != null) {
+    setViewMode(vmSelect as (`grid`|`list`|`dash`));
+  }
+
   const noResultStrings = [
     `no results found`,
     `behold, nothing`,
