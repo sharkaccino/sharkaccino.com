@@ -4,7 +4,8 @@
 
   .featuredImage {
   	width: calc(100% + (var(--edge-pad) * 2));
-  	height: 16rem;
+  	height: auto;
+		aspect-ratio: 2.33;
   	margin: calc(var(--edge-pad) * -1);
   	margin-bottom: 2rem;
   	mask-image: linear-gradient(to bottom, #aaa, black);
