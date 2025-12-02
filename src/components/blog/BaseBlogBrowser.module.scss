@@ -17,9 +17,9 @@
 			flex-direction: row;
 			gap: var(--inner-void-gap);
 			width: 100%;
+			height: calc(var(--inner-void-gap) * 3);
 
 			.rss {
-				position: relative;
 				display: flex;
 				align-items: center;
 				justify-content: center;

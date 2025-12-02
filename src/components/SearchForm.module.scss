@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: row;
 	gap: var(--inner-void-gap);
-	margin-right: calc(var(--inner-void-gap) * 2);
 }
 
 .searchBar {
