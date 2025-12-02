@@ -13,22 +13,18 @@ export type PostData = {
   };
   rendered?: any;
   filepath?: string;
-}
+};
 
-export type PostDateInfo = {
-  pubDate: {
-    iso: string,
-    simple: string,
-  },
-  editDate: {
-    iso: string,
-    simple: string
-  } | null
-}
+export type BlogAPIResults = {
+  posts: PostData[],
+  pageNumber: number,
+  totalPages: number,
+  filteredLength: number
+};
 
 export function getPostUrl(post: PostData): string {
   const pubDate: Date = post.data.pubDate;
 	const dc = getUTCDateComponents(pubDate);
 	const datepath = `${dc.year}/${dc.month}/${dc.day}`;
 	return `/blog/${datepath}/${pubDate.getTime()}`;
-}
+};

@@ -1,0 +1,28 @@
+.pagination {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	justify-content: space-between;
+	margin-top: var(--inner-void-gap);
+
+	.prevButton, .nextButton {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 10rem;
+	}
+
+	.prevButton {
+		grid-column: 1;
+	}
+
+	.index {
+		grid-column: 2;
+		justify-self: center;
+		padding: 1rem;
+	}
+
+	.nextButton {
+		grid-column: 3;
+		justify-self: flex-end;
+	}
+}

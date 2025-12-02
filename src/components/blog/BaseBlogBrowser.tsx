@@ -1,6 +1,6 @@
 import { type Component, createSignal, For, Show } from "solid-js";
 import { RandomStringinator } from "../../util/randomString";
-import { type PostData } from "../../util/blogPostTools";
+import { type BlogAPIResults, type PostData } from "../../util/blogPostTools";
 import { viewMode } from "../../state/blogBrowserStateManager";
 import SearchForm from "../SearchForm";
 import ViewMode from "./ViewMode";
@@ -42,7 +42,8 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
   } else {
     console.debug(window.location.search);
     fetch(`/api/blog/posts${window.location.search}`).then(async (response) => {
-      const posts: PostData[] = await response.json();
+      const json: BlogAPIResults = await response.json();
+      const posts: PostData[] = json.posts;
 
       // quick data validation
       // dates are not entirely serializable,

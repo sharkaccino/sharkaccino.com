@@ -1,9 +1,11 @@
 import { type APIRoute } from "astro";
 import { getCollection } from 'astro:content';
 import compare from 'string-comparison';
-import { type PostData } from "../../../util/blogPostTools";
+import { type BlogAPIResults, type PostData } from "../../../util/blogPostTools";
 
 export const prerender = false;
+
+const pageLimit = 25;
 
 const posts = await getCollection(`blog`);
 
@@ -44,7 +46,8 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
   let updatedPosts: PostData[] = [...posts];
 
   const query = urlparams.get(`search`);
-  const sort = urlparams.get(`sort`) ?? `relevance`;
+  const sortMode = urlparams.get(`sort`) ?? `relevance`;
+  const requestedPage = parseInt(urlparams.get(`page`) ?? ``) || 0;
 
   let comparisonData: any = {};
 
@@ -102,7 +105,7 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
     // console.debug(comparisonData);
   }
 
-  switch (sort) {
+  switch (sortMode) {
     case `oldestFirst`:
       updatedPosts.sort((a, b) => a.data.pubDate.getTime() - b.data.pubDate.getTime());
       break;
@@ -155,8 +158,25 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
       updatedPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
   }
 
+  const finalPosts = [];
+  const maximumPages = Math.ceil(posts.length / pageLimit);
+  const pagesClamped = Math.min(Math.max(requestedPage, 0), maximumPages);
+  const lowerLimit = pageLimit * pagesClamped;
+  const upperLimit = Math.min(posts.length, lowerLimit + pageLimit);
+
+  for (let i = lowerLimit; i < upperLimit; i++) {
+    finalPosts.push(updatedPosts[i]);
+  }
+
+  const responseData: BlogAPIResults = {
+    posts: finalPosts,
+    pageNumber: pagesClamped,
+    totalPages: maximumPages,
+    filteredLength: updatedPosts.length
+  }
+
   return new Response(
-    JSON.stringify(updatedPosts), 
+    JSON.stringify(responseData), 
     { 
       status: 200, 
       headers: {
