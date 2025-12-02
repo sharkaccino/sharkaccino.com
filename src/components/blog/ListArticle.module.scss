@@ -20,15 +20,27 @@
 		flex-direction: column;
 		height: 100%;
 		width: 50%;
-		gap: 1rem;
 
 		h2 {
 			text-decoration-line: underline;
 			text-decoration-color: transparent;
 			overflow: hidden;
 			overflow-wrap: anywhere;
+			text-overflow: ellipsis;
 			margin: 0;
-			flex: 1;
+			height: 2lh;
+			mask-image: 
+				linear-gradient(to right, #FFF 50%, transparent 100%),
+				linear-gradient(#FFF 0 0);
+			mask-size: 100% 1lh;
+			mask-position: 
+				0 1lh, 
+				0 0;
+			mask-repeat: no-repeat;
+		}
+
+		span:first-of-type {
+			margin-top: auto;
 		}
 
 		span {
