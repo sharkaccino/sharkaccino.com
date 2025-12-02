@@ -16,6 +16,11 @@
 		height: 100%;
 		aspect-ratio: 1;
 
+		.selected {
+			position: absolute;
+			opacity: 0;
+		}
+
 		&:has(input:is(:hover, :focus-visible)) {
 			background-color: var(--secondary-box-bg-hover);
 
@@ -27,6 +32,10 @@
 		&:has(input:checked) {
 			background-color: var(--trim);
 			color: var(--box-bg);
+
+			.selected {
+				opacity: 1;
+			}
 		}
 
 		input {

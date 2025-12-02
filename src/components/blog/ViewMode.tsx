@@ -31,7 +31,14 @@ const ViewMode: Component = () => {
   return (
     <div class={style.viewModes}>
 			<label>
-				<SVGIcon src="/icons/layout-grid.svg" />
+        <SVGIcon 
+          src="/icons/layout-grid.svg"
+          class={style.notSelected}
+        />
+        <SVGIcon 
+          src="/icons/layout-grid-filled.svg"
+          class={style.selected}
+        />
 				<input 
           ref={gridInput}
           oninput={updateValue}
@@ -42,7 +49,14 @@ const ViewMode: Component = () => {
         />
 			</label>
 			<label>
-				<SVGIcon src="/icons/layout-list.svg" />
+				<SVGIcon 
+          src="/icons/layout-list.svg"
+          class={style.notSelected}
+        />
+        <SVGIcon 
+          src="/icons/layout-list-filled.svg"
+          class={style.selected}
+        />
 				<input 
           ref={listInput}
           oninput={updateValue}
@@ -54,7 +68,14 @@ const ViewMode: Component = () => {
         />
 			</label>
 			<label>
-				<SVGIcon src="/icons/layout-dashboard.svg" />
+				<SVGIcon 
+          src="/icons/layout-dashboard.svg"
+          class={style.notSelected}
+        />
+        <SVGIcon 
+          src="/icons/layout-dashboard-filled.svg"
+          class={style.selected}
+        />
 				<input 
           ref={dashInput}
           oninput={updateValue}
