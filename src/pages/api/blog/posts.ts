@@ -159,10 +159,10 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
   }
 
   const finalPosts = [];
-  const maximumPages = Math.ceil(posts.length / pageLimit);
+  const maximumPages = Math.ceil(updatedPosts.length / pageLimit);
   const pagesClamped = Math.min(Math.max(requestedPage, 0), maximumPages);
   const lowerLimit = pageLimit * pagesClamped;
-  const upperLimit = Math.min(posts.length, lowerLimit + pageLimit);
+  const upperLimit = Math.min(updatedPosts.length, lowerLimit + pageLimit);
 
   for (let i = lowerLimit; i < upperLimit; i++) {
     finalPosts.push(updatedPosts[i]);
