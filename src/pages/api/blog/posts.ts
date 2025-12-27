@@ -5,8 +5,6 @@ import { type BlogAPIResults, type PostData } from "../../../util/blogPostTools"
 
 export const prerender = false;
 
-const pageLimit = 25;
-
 const posts = await getCollection(`blog`);
 
 for (const i in posts) {
@@ -48,6 +46,8 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
   const query = urlparams.get(`search`);
   const sortMode = urlparams.get(`sort`) ?? `relevance`;
   const requestedPage = parseInt(urlparams.get(`page`) ?? ``) - 1 || 0;
+  const requestedLimit = parseInt(urlparams.get(`limit`) ?? ``) || 20;
+  const pageLimit = Math.max(0, Math.min(100, requestedLimit));
 
   let comparisonData: any = {};
 
