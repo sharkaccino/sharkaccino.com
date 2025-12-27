@@ -88,10 +88,10 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
     			<ViewMode/>
         </div>
         <div 
+          class={style.searchIndicator}
           classList={{
             [style.active]: searchParams != null
           }}
-          class={style.searchIndicator}
         >
           <h2>search results:</h2>
         </div>
