@@ -1,14 +1,27 @@
 .pagination {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr max-content 1fr;
+	padding: calc(var(--edge-pad) / 2);
+	gap: var(--inner-void-gap);
 	justify-content: space-between;
-	margin-top: var(--inner-void-gap);
 
 	.prevButton, .nextButton {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 10rem;
+		height: calc(var(--inner-void-gap) * 3);
+		aspect-ratio: 1;
+		color: var(--text);
+		background-color: var(--secondary-box-bg);
+
+		&:not(.enabled) {
+			pointer-events: none;
+			opacity: 0.33;
+		}
+
+		&:is(:hover, :focus-visible) {
+			background-color: var(--secondary-box-bg-hover);
+		}
 	}
 
 	.prevButton {
@@ -16,9 +29,12 @@
 	}
 
 	.index {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		grid-column: 2;
 		justify-self: center;
-		padding: 1rem;
+		padding: 0 1rem;
 	}
 
 	.nextButton {
