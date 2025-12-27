@@ -159,18 +159,6 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
             )
           }}
         </For>
-        <Show when={getPosts().length > 0 && getCurrentPage() === getPageCount()}>
-          <div 
-            class={style.listEndCap}
-            classList={{
-              "contentBox": getViewMode() !== `grid`
-            }}
-          >
-            <h2 class={style.endOfPosts}>
-              that's all, folks!
-            </h2>
-          </div>
-        </Show>
         <Show when={getPosts().length == 0}>
           <div 
             class={style.listEndCap}
