@@ -9,6 +9,7 @@ import ListArticle from "./ListArticle";
 import BlogPost from "./BlogPost";
 import style from "./BaseBlogBrowser.module.scss";
 import SVGIcon from "../SVGIcon";
+import Pagination from "../Pagination";
 
 // TODO: mobile support
 
@@ -19,6 +20,10 @@ import SVGIcon from "../SVGIcon";
 const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
   const [ getViewMode, setViewMode ] = viewMode;
   const [ getPosts, setPosts ] = createSignal<PostData[]>([]);
+  const [ getCurrentPage, setCurrentPage ] = createSignal<number>(1);
+  const [ getPageCount, setPageCount ] = createSignal<number>(1);
+  const [ getNextPage, setNextPage ] = createSignal<string>(``);
+  const [ getPrevPage, setPrevPage ] = createSignal<string>(``);
 
   const vmSelect = window.localStorage.getItem(`blogLayout`);
   if (vmSelect != null) {
@@ -37,6 +42,8 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
 
   const stringinator = new RandomStringinator(noResultStrings);
 
+  const urlParams = new URLSearchParams(window.location.search);
+
   if (props.postData != null) {
     setPosts(props.postData);
   } else {
@@ -44,6 +51,40 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
     fetch(`/api/blog/posts${window.location.search}`).then(async (response) => {
       const json: BlogAPIResults = await response.json();
       const posts: PostData[] = json.posts;
+
+      setCurrentPage(json.pageNumber+1);
+      setPageCount(json.totalPages);
+
+      const cleanLocation = window.location.href.split(/[?#]/)[0];
+
+      if (json.pageNumber > 0) {
+        const newParams = new URLSearchParams(window.location.search);
+
+        if (json.pageNumber === 1) {
+          // page number is zero-indexed in api
+          // which means this is actually page 2
+          // which then means the previous page would be page 1
+          // which *then* means we dont need a previous page button
+          newParams.delete(`page`);
+        } else {
+          newParams.set(`page`, (json.pageNumber).toString());
+        }
+
+        const p = newParams.toString();
+
+        if (p.length > 0) {
+          setPrevPage(cleanLocation + `?${p}`);
+        } else {
+          setPrevPage(cleanLocation);
+        }
+      }
+
+      if (json.totalPages > 1 && json.pageNumber+1 != json.totalPages) {
+        const newParams = new URLSearchParams(window.location.search);
+        newParams.set(`page`, (json.pageNumber+2).toString());
+
+        setNextPage(cleanLocation + `?${newParams.toString()}`);
+      }
 
       // quick data validation
       // dates are not entirely serializable,
@@ -60,9 +101,6 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
       console.debug(posts);
     });
   }
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const searchParams = urlParams.get(`search`);
 
   window.sessionStorage.setItem(`returnPage`, window.location.toString());
 
@@ -90,7 +128,7 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
         <div 
           class={style.searchIndicator}
           classList={{
-            [style.active]: searchParams != null
+            [style.active]: urlParams.get(`search`) != null
           }}
         >
           <h2>search results:</h2>
@@ -121,24 +159,38 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
             )
           }}
         </For>
-        <div 
-          class={style.listEndCap}
-          classList={{
-            "contentBox": getViewMode() !== `grid`
-          }}
-        >
-          <Show when={getPosts().length > 0}>
+        <Show when={getPosts().length > 0 && getCurrentPage() === getPageCount()}>
+          <div 
+            class={style.listEndCap}
+            classList={{
+              "contentBox": getViewMode() !== `grid`
+            }}
+          >
             <h2 class={style.endOfPosts}>
               that's all, folks!
             </h2>
-          </Show>
-          <Show when={getPosts().length == 0}>
+          </div>
+        </Show>
+        <Show when={getPosts().length == 0}>
+          <div 
+            class={style.listEndCap}
+            classList={{
+              "contentBox": getViewMode() !== `grid`
+            }}
+          >
             <h2 class={style.noResults}>
               {stringinator.getCurrentString()}
             </h2>
-          </Show>
-        </div>
+          </div>
+        </Show>
       </main>
+
+      <Pagination 
+        prevUrl={getPrevPage()} 
+        nextUrl={getNextPage()} 
+        index={getCurrentPage()}
+        pages={getPageCount()}
+      />
   	</div>
   )
 }

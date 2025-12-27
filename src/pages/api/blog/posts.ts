@@ -47,7 +47,7 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
 
   const query = urlparams.get(`search`);
   const sortMode = urlparams.get(`sort`) ?? `relevance`;
-  const requestedPage = parseInt(urlparams.get(`page`) ?? ``) || 0;
+  const requestedPage = parseInt(urlparams.get(`page`) ?? ``) - 1 || 0;
 
   let comparisonData: any = {};
 
@@ -159,7 +159,7 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
   }
 
   const finalPosts = [];
-  const maximumPages = Math.ceil(updatedPosts.length / pageLimit);
+  const maximumPages = Math.max(1, Math.ceil(updatedPosts.length / pageLimit));
   const pagesClamped = Math.min(Math.max(requestedPage, 0), maximumPages);
   const lowerLimit = pageLimit * pagesClamped;
   const upperLimit = Math.min(updatedPosts.length, lowerLimit + pageLimit);

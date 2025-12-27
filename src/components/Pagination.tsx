@@ -12,11 +12,11 @@ type PaginationOptions = {
 const Pagination: Component<PaginationOptions> = (props) => {
   return (
     <nav class={`${style.pagination} small`}>
-			<Show when={props.prevUrl != null}>
+			<Show when={props.prevUrl != null && props.prevUrl.length > 0}>
 				<a 
 					class={`${style.prevButton} contentBox`} 
 					href={props.prevUrl} 
-					aria-label="Previous Post"
+					aria-label="Previous Page"
 				>
 					<SVGIcon src="/icons/chevron-left.svg" />
 				</a>
@@ -26,11 +26,11 @@ const Pagination: Component<PaginationOptions> = (props) => {
         {props.index} / {props.pages}
       </span>
 
-			<Show when={props.nextUrl != null}>
+			<Show when={props.nextUrl != null && props.nextUrl.length > 0}>
 				<a 
 					class={`${style.nextButton} contentBox`}
 					href={props.nextUrl} 
-					aria-label="Next Post"
+					aria-label="Next Page"
 				>
 					<SVGIcon src="/icons/chevron-right.svg" />
 				</a>
