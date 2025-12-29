@@ -115,13 +115,6 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
     >
   		<aside class="contentBox">
   			<div class={style.hbox}>
-          <a 
-            href="blog/rss.xml" 
-            title="subscribe via RSS"
-            class={style.rss}
-          >
-            <SVGIcon src="/icons/rss.svg"/>
-          </a>
           <SearchForm />
     			<ViewMode/>
         </div>

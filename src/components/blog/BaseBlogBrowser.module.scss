@@ -18,19 +18,6 @@
 			gap: var(--content-gap-small);
 			width: 100%;
 			height: var(--content-gap-large);
-
-			.rss {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background-color: #e76317;
-				color: #FFF;
-				aspect-ratio: 1;
-
-				&:is(:hover, :focus-visible) {
-					background-color: #f37933;
-				}
-			}
 		}
 
 		.searchIndicator {
