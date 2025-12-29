@@ -2,22 +2,22 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: var(--inner-void-gap);
-	flex: 1;
+	gap: var(--content-gap-small);
+	align-self: start;
 
 	aside {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		gap: calc(var(--edge-pad) / 2);
-		padding: calc(var(--edge-pad) / 2);
+		gap: var(--content-gap-medium);
+		padding: var(--content-gap-medium);
 
 		.hbox {
 			display: flex;
 			flex-direction: row;
-			gap: var(--inner-void-gap);
+			gap: var(--content-gap-small);
 			width: 100%;
-			height: calc(var(--inner-void-gap) * 3);
+			height: var(--content-gap-large);
 
 			.rss {
 				display: flex;
@@ -38,7 +38,7 @@
 			align-items: center;
 			width: 100%;
 			overflow: hidden;
-			margin: calc((var(--edge-pad) / 2) * -0.5) 0;
+			margin: calc(var(--content-gap-medium) * -0.5) 0;
 
 			&.active {
 				margin: 0;
@@ -64,7 +64,7 @@
 		position: relative;
 		display: flex;
 		align-items: flex-start;
-		gap: var(--inner-void-gap);
+		gap: var(--content-gap-small);
 		width: 100%;
 	}
 
@@ -73,18 +73,14 @@
 
 		flex-direction: row;
 		flex-wrap: wrap;
-		padding: calc(var(--edge-pad) / 2);
+		padding: var(--content-gap-medium);
 
 		> *:not(.listEndCap) {
-			flex-basis: calc(((100% - (var(--inner-void-gap) * ($columns - 1))) / $columns));
+			flex-basis: calc(((100% - (var(--content-gap-small) * ($columns - 1))) / $columns));
 		}
 
 		.listEndCap {
-			margin: calc((var(--edge-pad) / 2) * -1) 0;
-		}
-
-		* ~ .listEndCap {
-			margin-top: calc((var(--edge-pad) / 4) * -1);
+			margin: calc(var(--content-gap-medium) * -1) 0;
 		}
 	}
 

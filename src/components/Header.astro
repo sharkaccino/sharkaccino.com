@@ -10,24 +10,26 @@ function checkPage(name: string): string {
 ---
 
 <header>
-  <a class={checkPage(`/`)} href="/">
-    home
-  </a>
-  <a class={checkPage(`/blog`)} href="/blog">
-    blog
-  </a>
-  <a class={checkPage(`/portfolio`)} href="/portfolio">
-    portfolio
-  </a>
-  <a class={checkPage(`/hardware`)} href="/hardware">
-    hardware
-  </a>
-  <a class={checkPage(`/commissions`)} href="/commissions">
-    commissions
-  </a>
-  <a class={checkPage(`/contact`)} href="/contact">
-    contact
-  </a>
+  <div class="headerContent">
+    <a class={checkPage(`/`)} href="/">
+      home
+    </a>
+    <a class={checkPage(`/blog`)} href="/blog">
+      blog
+    </a>
+    <a class={checkPage(`/portfolio`)} href="/portfolio">
+      portfolio
+    </a>
+    <a class={checkPage(`/hardware`)} href="/hardware">
+      hardware
+    </a>
+    <a class={checkPage(`/commissions`)} href="/commissions">
+      commissions
+    </a>
+    <a class={checkPage(`/contact`)} href="/contact">
+      contact
+    </a>
+  </div>
 </header>
 
 <style lang="scss">
@@ -36,20 +38,35 @@ function checkPage(name: string): string {
     align-items: center;
     justify-content: center;
     background-color: var(--box-bg);
-    width: 100%;
-    height: 4rem;
-    gap: 0.5rem;
+    width: 100vw;
+    height: calc(var(--content-gap-large) + (var(--content-gap-small) * 2));
+    padding: var(--content-gap-small);
+    box-sizing: border-box;
+    gap: var(--content-gap-small);
 
-    a {
-      padding: 0.5rem 1rem;
+    .headerContent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      max-width: var(--content-width-large);
 
-      &.selected {
-        color: var(--box-bg);
-        background-color: var(--trim);
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 var(--content-gap-medium);
 
-        &:is(:hover, :focus-visible) {
-          background-color: var(--trim-hover);
-          text-decoration-color: var(--box-bg);
+        &.selected {
+          color: var(--box-bg);
+          background-color: var(--trim);
+
+          &:is(:hover, :focus-visible) {
+            background-color: var(--trim-hover);
+            text-decoration-color: var(--box-bg);
+          }
         }
       }
     }

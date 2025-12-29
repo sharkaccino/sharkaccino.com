@@ -1,7 +1,7 @@
 .form {
 	display: flex;
 	flex-direction: row;
-	gap: var(--inner-void-gap);
+	gap: var(--content-gap-small);
 }
 
 .searchBar {
@@ -13,8 +13,8 @@
 		width: 100%;
 		background-color: var(--secondary-box-bg);
 		color: var(--text);
-		padding: 0.5rem 0.75rem;
-		padding-right: calc(24px + (0.5rem) * 2);
+		padding-left: calc(var(--content-gap-large) / 3);
+		padding-right: var(--content-gap-large);
 		height: 100%;
 		font-size: 1rem;
 		border: none;
@@ -32,7 +32,7 @@
 		position: absolute;
 		top: 50%;
 		right: 0;
-		margin-right: 0.5rem;
+		margin-right: calc((var(--content-gap-large) - 24px) / 2);
 		transform: translateY(-50%);
 		opacity: 0.5;
 		pointer-events: none;
@@ -43,7 +43,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	gap: var(--inner-void-gap);
+	gap: var(--content-gap-small);
 	user-select: none;
 
 	span {
@@ -53,12 +53,12 @@
 	select {
 		background-color: var(--secondary-box-bg);
 		color: currentColor;
-		padding: 0.5rem 0.75rem;
+		padding-left: calc(var(--content-gap-large) / 3);
+		padding-right: var(--content-gap-large);
 		font-size: 1rem;
 		border: none;
 		appearance: none;
 		height: 100%;
-		padding-right: calc(24px + (0.5rem * 2));
 		flex: 1;
 
 		&:is(:hover, :focus-visible) {
@@ -70,7 +70,7 @@
 		position: absolute;
 		top: 50%;
 		right: 0;
-		margin-right: 0.5rem;
+		margin-right: calc((var(--content-gap-large) - 24px) / 2);
 		transform: translateY(-50%);
 		opacity: 0.5;
 		pointer-events: none;

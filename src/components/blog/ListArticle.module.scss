@@ -2,11 +2,11 @@
 	position: relative;
 	width: 100%;
 	height: 10rem;
-	padding: calc(var(--edge-pad) / 2);
+	padding: var(--content-gap-medium);
 	box-sizing: border-box;
 
 	&:is(:hover, :focus-visible) {
-		outline-offset: calc((var(--edge-pad) / 4) * -1);
+		outline-offset: calc((var(--content-gap-large) / 4) * -1);
 		text-decoration-color: transparent;
 
 		h2 {

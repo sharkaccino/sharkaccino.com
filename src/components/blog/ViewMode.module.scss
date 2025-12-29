@@ -3,8 +3,8 @@
 	align-items: center;
 	justify-content: flex-end;
 	flex: 1;
-	margin-left: calc(var(--inner-void-gap) * 2);
-	gap: var(--inner-void-gap);
+	margin-left: calc(var(--content-gap-small) * 2);
+	gap: var(--content-gap-small);
 
 	label {
 		position: relative;
