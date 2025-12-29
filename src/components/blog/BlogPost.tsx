@@ -40,7 +40,8 @@ const BlogPost: Component<{ postData: PostData }> = (props) => {
         </a>
       	<Show when={post.data.editDate != null}>
       		<span class={style.updated}>
-      			updated: <time datetime={editDateISO}>{editDateSimple}</time>
+            <SVGIcon src="/icons/pencil.svg" />
+            <time datetime={editDateISO}>{editDateSimple}</time>
       		</span>
       	</Show>
       </div>
