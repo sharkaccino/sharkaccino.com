@@ -12,7 +12,7 @@ const buildTime = new Date(parseInt(buildTimeRaw));
 ---
 
 <footer>
-  <a href="#" class="jumpToStart">
+  <a href="#" class="jumpToStart linkButton">
     <SVGIcon src="/icons/chevron-up.svg" />
     <span>back to top</span>
     <SVGIcon src="/icons/chevron-up.svg" />
@@ -64,12 +64,6 @@ const buildTime = new Date(parseInt(buildTimeRaw));
     box-sizing: border-box;
 
     > .jumpToStart {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      height: var(--content-gap-large);
-      padding: 0 calc((var(--content-gap-large) - 24px) / 2);
-      gap: var(--content-gap-small);
       background-color: var(--trim);
       color: var(--box-bg);
 
