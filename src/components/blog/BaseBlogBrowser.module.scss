@@ -3,7 +3,6 @@
 	flex-direction: column;
 	align-items: center;
 	gap: var(--content-gap-small);
-	align-self: start;
 
 	aside {
 		display: flex;
@@ -56,7 +55,7 @@
 	}
 
 	.gridView {
-		$columns: 5;
+		$columns: 4;
 
 		flex-direction: row;
 		flex-wrap: wrap;
