@@ -19,10 +19,6 @@ export class RandomStringinator {
 
     [ this.getCurrentString, this.setCurrentString ] = createSignal<string>(``);
     this.refresh();
-
-    // setInterval(() => {
-    //   this.refresh();
-    // }, 100);
   }
 
   refresh() {
