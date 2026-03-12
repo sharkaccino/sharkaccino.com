@@ -1,0 +1,237 @@
+---
+import Base from '../Base.astro';
+import CopyTextModal from '../components/CopyTextModal'
+
+const socialLinks = [
+  {
+    title: `bluesky`,
+    url: `https://bsky.app/profile/sharkaccino.com`
+  },
+  {
+    title: `matrix`,
+    text: `@sharkaccino:matrix.org`
+  },
+  {
+    title: `github`,
+    url: `https://github.com/sharkaccino`
+  },
+  {
+    title: `discord`,
+    text: `@sharkaccino`
+  },
+  {
+    title: `steam`,
+    url: `https://steamcommunity.com/id/sharkaccino/`
+  },
+  {
+    title: `youtube`,
+    url: `https://www.youtube.com/@sharkaccino`
+  },
+  {
+    title: `ko-fi`,
+    url: `https://ko-fi.com/sharkaccino`
+  },
+	{
+    title: `rss`,
+    url: `/blog/rss.xml`
+  },
+	{
+    title: `e-mail`,
+    url: `mailto:contact@sharkaccino.com`
+  }
+];
+---
+
+<Base title="links">
+	<main class="contentBox small">
+		<h1>personal links</h1>
+		<p>social media, ways to contact me, etc.</p>
+		<div class="linkList">
+			{socialLinks.map((item) => {
+				if (item.url) {
+					return (
+						<a href={item.url} class={`linkBoxBase ${item.title}`}>
+							<h3>{item.title}</h3>
+						</a>
+					)
+				} else {
+					return (
+						<CopyTextModal 
+							title={`${item.title} username`}
+							text={item.text!}
+							class={`linkBoxBase ${item.title}`} 
+							client:load
+						>
+							<h3>{item.title}</h3>
+						</CopyTextModal>
+					)
+				}
+			})}
+		</div>
+		<p class="warning">if it's not linked here, it's probably not me. <b>you have been warned!</b></p>
+	</main>
+</Base>
+
+<style lang="scss">
+	main {
+		padding: var(--content-gap-large);
+
+		> h1 {
+			margin: 0;
+		}
+
+		> p {
+			margin: 0;
+			margin-bottom: var(--content-gap-medium);
+		}
+
+		> p.warning {
+			margin-top: var(--content-gap-medium);
+			margin-bottom: 0;
+			text-align: center;
+		}
+	}
+
+	.linkList {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--content-gap-small)
+	}
+
+	:global(.linkBoxBase) {
+		--icon-url: url("/icons/alert-triangle.svg");
+    --icon-v-offset: 50%;
+		--icon-rotate: -15deg;
+		--icon-color: #FF00FF;
+		--icon-bg: #000;
+
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 40%;
+		height: calc(var(--content-gap-small) * 4);
+		flex-basis: calc(50% - (var(--content-gap-small) / 2));
+		color: var(--box-bg);
+		background-color: var(--trim);
+		// background-image: linear-gradient(to left, , var(--icon-color));
+		overflow: hidden;
+
+		&:before {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 25%;
+			transform: translate(-50%, -50%) rotate(var(--icon-rotate));
+			height: 400%;
+			aspect-ratio: 1;
+			background-image: linear-gradient(to bottom, var(--icon-color), var(--icon-bg));
+			mask-image: var(--icon-url);
+			mask-size: contain;
+			mask-position: 50% var(--icon-v-offset);
+			mask-repeat: no-repeat;
+			transition: all 250ms var(--anim-timing);
+			opacity: 0;
+		}
+
+		&:is(:hover, :focus-visible) {
+			background-color: var(--icon-bg);
+			color: var(--icon-color);
+
+			&:before {
+				opacity: 0.5;
+				transition-duration: 0ms;
+			}
+
+			h3 {
+	      transition-duration: 0ms;
+	    }
+		}
+
+		h3 {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+			height: 100%;
+			margin: 0;
+			transition: all 250ms var(--anim-timing);
+			font-weight: normal;
+
+			&:before {
+				content: '';
+				display: block;
+				height: calc(100% - 1rem);
+				aspect-ratio: 1;
+				background-color: currentColor;
+				mask-image: var(--icon-url);
+				mask-size: contain;
+				mask-repeat: no-repeat;
+			}
+		}
+
+		&.bluesky {
+			--icon-url: url("/icons/bluesky.svg");
+			--icon-color: #208bfe;
+			--icon-bg: #161e27;
+		}
+
+		&.matrix {
+			--icon-url: url("/icons/matrix.svg");
+			--icon-color: #FFFFFF;
+			--icon-bg: #000000;
+		}
+
+		&.github {
+			--icon-url: url("/icons/github.svg");
+			--icon-v-offset: 35px;
+			--icon-color: #E6EDF3;
+			--icon-bg: #161B22;
+		}
+
+		&.discord {
+			--icon-url: url("/icons/discord.svg");
+			--icon-v-offset: -15px;
+			--icon-color: #FFF;
+			--icon-bg: #5865F2;
+		}
+
+		&.steam {
+			--icon-url: url("/icons/steam.svg");
+			--icon-v-offset: -10px;
+			--icon-color: #C5C3C0;
+			--icon-bg: #171D25;
+		}
+
+		&.youtube {
+			--icon-url: url("/icons/youtube.svg");
+			--icon-color: #FFF;
+			--icon-bg: #FF1111;
+		}
+
+		&.ko-fi {
+			--icon-url: url("/icons/kofi.svg");
+			--icon-v-offset: 15px;
+			--icon-color: #FFF;
+			--icon-bg: #FF6433;
+		}
+
+		&.rss {
+			--icon-url: url("/icons/rss.svg");
+			--icon-v-offset: -30px;
+			--icon-color: #FFFFFF;
+			--icon-bg: #F37933;
+		}
+
+		&.e-mail {
+			--icon-url: url("/icons/email.svg");
+			--icon-color: #69b3e7;
+			--icon-bg: #1d2022;
+		}
+	}
+</style>

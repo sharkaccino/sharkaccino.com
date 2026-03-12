@@ -1,0 +1,127 @@
+@property --copy-opacity {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --label-opacity {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: true;
+}
+
+@keyframes copyNotification {
+  0% {
+    --copy-opacity: 1;
+    --label-opacity: 0;
+  }
+  60% {
+    --copy-opacity: 1;
+    --label-opacity: 0;
+  }
+  80% {
+    --copy-opacity: 0;
+    --label-opacity: 0;
+  }
+  100% {
+    --copy-opacity: 0;
+    --label-opacity: 1;
+  }
+}
+
+.modalBase {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.66);
+  transition: opacity 250ms var(--anim-timing) !important;
+  opacity: 0;
+  pointer-events: none;
+
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+
+    .modal {
+      transform: scale(1);
+    }
+  }
+
+  .modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--content-gap-small);
+    transition: all 250ms var(--anim-timing) !important;
+    padding: var(--content-gap-medium);
+    transform: scale(1.1);
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: var(--content-gap-large);
+      width: 100%;
+
+      h1 {
+        margin: 0;
+      }
+    }
+
+    .closeButton {
+      align-self: flex-end;
+    }
+
+    .textField {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .copyButton {
+      --copy-opacity: 0;
+      --label-opacity: 1;
+
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      place-items: center;
+      place-content: center;
+      color: var(--box-bg);
+      background-color: var(--trim);
+      padding: var(--content-gap-small);
+
+      &:is(:hover, :focus-visible) {
+    		background-color: var(--trim-hover);
+    	}
+
+      &.copyAnimator {
+        animation-name: copyNotification;
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+        animation-timing-function: var(--anim-timing);
+        animation-fill-mode: forwards;
+      }
+
+      .normLabel {
+        grid-area: 1 / 1;
+        opacity: var(--label-opacity);
+      }
+
+      .copyLabel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        grid-area: 1 / 1;
+        opacity: var(--copy-opacity);
+      }
+    }
+  }
+}

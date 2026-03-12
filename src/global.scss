@@ -157,8 +157,20 @@ button, .linkButton {
   padding: 0 calc((var(--content-gap-large) - 24px) / 2);
   gap: var(--content-gap-small);
   background-color: var(--secondary-box-bg);
+  appearance: none;
+  border: none;
+  color: var(--text);
+  font-size: 1rem;
 
 	&:is(:hover, :focus-visible) {
 		background-color: var(--secondary-box-bg-hover);
 	}
+}
+
+input[type="text"] {
+  background-color: var(--secondary-box-bg);
+	color: var(--text);
+  border: none;
+  padding: var(--content-gap-small);
+  font-size: 1rem;
 }
