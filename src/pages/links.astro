@@ -40,6 +40,28 @@ const socialLinks = [
     url: `mailto:contact@sharkaccino.com`
   }
 ];
+
+const friendLinks = [
+	{
+		url: `https://sciman.info/`,
+		style: `sciman`
+	},
+	{
+		url: `https://ruby.gay/`,
+	},
+	{
+		url: `https://vancouvershark.neocities.org/`,
+	},
+	{
+		url: `https://cosmoptera.neocities.org/`,
+	},
+	{
+		url: `https://tyrelpinnegar.com/`,
+	},
+	{
+		url: `https://dopcom.net/`,
+	}
+]
 ---
 
 <Base title="links">
@@ -50,7 +72,7 @@ const socialLinks = [
 			{socialLinks.map((item) => {
 				if (item.url) {
 					return (
-						<a href={item.url} class={`linkBoxBase ${item.title}`}>
+						<a href={item.url} class={`linkBoxBase ${item.title}`} title={item.title}>
 							<h3>{item.title}</h3>
 						</a>
 					)
@@ -69,6 +91,20 @@ const socialLinks = [
 			})}
 		</div>
 		<p class="warning">if it's not linked here, it's probably not me. <b>you have been warned!</b></p>
+		<h1>other cool spots</h1>
+		<p>personal sites of my friends and other awesome folks</p>
+		<div class="linkList">
+			{friendLinks.map((item) => {
+				const urlObj = new URL(item.url);
+				const style = item.style ?? `basic`;
+
+				return (
+					<a href={item.url} class={`linkBoxBase ${style}`}>
+						<h3>{urlObj.hostname}</h3>
+					</a>
+				)
+			})}
+		</div>
 	</main>
 </Base>
 
@@ -76,8 +112,13 @@ const socialLinks = [
 	main {
 		padding: var(--content-gap-large);
 
-		> h1 {
+		> h1:first-child {
 			margin: 0;
+		}
+
+		> h1 {
+			margin-top: var(--content-gap-large);
+			margin-bottom: 0;
 		}
 
 		> p {
@@ -117,7 +158,6 @@ const socialLinks = [
 		flex-basis: calc(50% - (var(--content-gap-small) / 2));
 		color: var(--box-bg);
 		background-color: var(--trim);
-		// background-image: linear-gradient(to left, , var(--icon-color));
 		overflow: hidden;
 
 		&:before {
@@ -143,7 +183,7 @@ const socialLinks = [
 			color: var(--icon-color);
 
 			&:before {
-				opacity: 0.5;
+				opacity: 0.75;
 				transition-duration: 0ms;
 			}
 
@@ -232,6 +272,18 @@ const socialLinks = [
 			--icon-url: url("/icons/email.svg");
 			--icon-color: #69b3e7;
 			--icon-bg: #1d2022;
+		}
+
+		&.basic {
+			--icon-url: url("/icons/world.svg");
+			--icon-color: var(--box-bg);
+			--icon-bg: var(--trim-hover);
+		}
+
+		&.sciman {
+			--icon-url: url("/icons/sciman.svg");
+			--icon-color: var(--box-bg);
+			--icon-bg: var(--trim-hover);
 		}
 	}
 </style>

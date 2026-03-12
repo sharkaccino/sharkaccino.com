@@ -1,0 +1,21 @@
+<svg
+   viewBox="0 0 100 100"
+   version="1.1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <path
+     style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+     d="m 56.910422,56.910763 16.233672,16.23367" />
+  <ellipse
+     style="fill:none;stroke:#000000;stroke-width:5;stroke-dasharray:none;stroke-opacity:1"
+     cx="65.02726"
+     cy="65.027596"
+     rx="25.454082"
+     ry="25.454081" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+     d="M 41.97274,31.140334 V 10.530735 h 46.109443 v 23.109599" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+     d="M 33.640334,88.081846 H 10.531072 V 41.972403 h 20.609262" />
+</svg>
