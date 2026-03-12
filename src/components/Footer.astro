@@ -47,6 +47,8 @@ const buildTime = new Date(parseInt(buildTimeRaw));
       </div>
     </div>
   </div>
+  <span class="love">made with <SVGIcon src="/icons/heart-filled.svg" /> by jackie</span>
+  <span>no AI/LLM was used in the creation of this website or the content it holds</span>
 </footer>
 
 <style lang="scss">
@@ -63,7 +65,7 @@ const buildTime = new Date(parseInt(buildTimeRaw));
     padding-bottom: var(--content-gap-large);
     box-sizing: border-box;
 
-    > .jumpToStart {
+    .jumpToStart {
       background-color: var(--trim);
       color: var(--box-bg);
 
@@ -75,10 +77,12 @@ const buildTime = new Date(parseInt(buildTimeRaw));
     .orientationFlipper {
       width: 100%;
       max-width: var(--content-width-small);
+      padding: 0 var(--content-gap-large);
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      box-sizing: border-box;
     }
 
     .copyrightBlock {
@@ -133,6 +137,13 @@ const buildTime = new Date(parseInt(buildTimeRaw));
         display: flex;
         flex-direction: column;
       }
+    }
+
+    .love {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5ch;
     }
   }
 </style>
