@@ -128,7 +128,6 @@ const SearchForm: Component = () => {
   				<option value="newestFirst">newest first</option>
   				<option value="oldestFirst">oldest first</option>
           <option value="recentlyUpdated">recently updated</option>
-          <option value="mostLiked">most liked</option>
           <option value="random">random</option>
   			</select>
         <SVGIcon src="/icons/chevron-down.svg" class={style.arrow}/>

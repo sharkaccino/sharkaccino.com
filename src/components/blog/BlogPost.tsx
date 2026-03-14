@@ -72,15 +72,6 @@ const BlogPost: Component<{ postData: PostData }> = (props) => {
           </For>
       	</ul>
       </Show>
-      <div class={style.shelf}>
-        <button>
-					<SVGIcon src="/icons/heart.svg" />
-          <span>1234</span>
-				</button>
-  			<button>
-  				<SVGIcon src="/icons/share.svg" />
-  			</button>
-      </div>
     </div>
   )
 }

@@ -126,9 +126,6 @@ export const GET: APIRoute = async ({ params, request }): Promise<Response> => {
       });
 
       break;
-    case `mostLiked`:
-      // TODO
-      // break;
     case `random`:
       // durstenfeld shuffle
       // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm

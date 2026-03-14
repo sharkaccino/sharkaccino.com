@@ -93,29 +93,4 @@
 			}
   	}
   }
-
-	.shelf {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-		height: var(--content-gap-large);
-		margin-top: var(--content-gap-medium);
-
-		button {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			gap: calc((var(--content-gap-large) - 24px) / 2);
-			height: 100%;
-			appearance: none;
-			border: none;
-			padding: calc((var(--content-gap-large) - 24px) / 2);
-
-			span {
-				margin-right: calc(var(--content-gap-large) * 0.1);
-			}
-		}
-	}
 }
