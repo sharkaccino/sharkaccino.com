@@ -4,33 +4,29 @@ import style from './LocalizedTime.module.scss'
 
 const hourMsg = [
   {
-    hour: 2,
-    text: `i'm probably asleep. it'll take me a while to get back to you!`
-  },
-  {
     hour: 8,
-    text: `i might be awake, but i usually like to sleep in. i'll get back to you soon, though!`
+    text: `i might be awake, but i'm usually only up this early because of errands i have to run. i should get back to you soon, though!`
   },
   {
     hour: 10,
-    text: `i'm probably awake by now. try getting in touch!`
-  },
-  {
-    hour: 12,
-    text: `i'm usually awake around this time. feel free to message me!`
+    text: `i'm usually awake around this time. i could be doing some things, but feel free to say hi!`
   },
   {
     hour: 20,
-    text: `if i was working today, i should be home by now. feel free to get in touch!`
+    text: `if i was working today, i should be home by now. it's getting a bit late here, but feel free to get in touch anyway!`
   },
   {
     hour: 22,
-    text: `it's getting a bit late here, but i might still respond!`
-  }
+    text: `i might be pretty tired at this point, but i could still respond. feel free to try your luck!`
+  },
+  {
+    hour: 23,
+    text: `i'm probably asleep. feel free to send me a message, but it might take me a while to get back to you!`
+  },
 ]
 
 const LocalizedTime: Component = (props) => {
-  const [getReadableTime, setReadableTime] = createSignal<string>(`0:00 PM`);
+  const [getReadableTime, setReadableTime] = createSignal<string>(`[...]`);
   const [getTimeMessage, setTimeMessage] = createSignal<string>(`[...]`);
 
   const updateMyTime = () => {
@@ -40,6 +36,9 @@ const LocalizedTime: Component = (props) => {
       timeZone: `America/Los_Angeles`
     }));
 
+    // testing only
+    // const currentHour = 1;
+
     setReadableTime(new Date().toLocaleString('en-US', {
       hour: 'numeric',
       minute: 'numeric',
@@ -47,11 +46,15 @@ const LocalizedTime: Component = (props) => {
       timeZone: `America/Los_Angeles`
     }));
 
-    let pickMsg = hourMsg[0].text;
+    let pickMsg = ``;
 
     for (const message of hourMsg) {
       if (message.hour > currentHour) break;
       pickMsg = message.text;
+    }
+
+    if (pickMsg.length === 0) {
+      pickMsg = hourMsg[hourMsg.length - 1].text;
     }
 
     setTimeMessage(pickMsg);
