@@ -1,7 +1,107 @@
 ---
 import Base from '../Base.astro';
+import LocalizedTime from '../components/home/LocalizedTime';
+import SVGIcon from '../components/SVGIcon';
 ---
 
 <Base title="home">
-	something something lorem ipsum
+	<main class="contentBox medium home">
+		<div class="whoami">
+			<img src="/gallery/avatars/jackie-2025.png"/>
+			<div class="infocard">
+				<div class="oneliner">
+					<h1>i'm jackie.</h1>
+					<b>(she/her)</b>
+				</div>
+				<h2>i like to make things.</h2>
+				<span>3d artist, designer, programmer, writer.</span>
+			</div>
+			<div class="contact">
+				<LocalizedTime client:load />
+				<a href="/links" class="linkButton">
+					<h3>contact info</h3>
+					<SVGIcon class="icon" src="/icons/chevron-right.svg" />
+				</a>
+			</div>
+		</div>
+	</main>
 </Base>
+
+<style lang="scss">
+	.home {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: var(--content-gap-large);
+	}
+
+	.whoami {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		gap: var(--content-gap-large);
+
+		img {
+			width: 12rem;
+			aspect-ratio: 1;
+			border-radius: 50%;
+		}
+
+		.infocard {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+
+			.oneliner {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: 0.5rem;
+
+				h1 {
+					font-size: 3rem;
+					margin: 0;
+				}
+
+				b {
+					font-size: 1.2rem;
+					transform: translateY(-0.75rem) rotate(-12deg);
+				}
+			}
+
+			h2 {
+				margin: 0;
+				margin-top: -0.5rem;
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		.contact {
+			width: 20rem;
+
+			a {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.25rem;
+				background-color: var(--trim);
+				color: var(--box-bg);
+
+				h3 {
+					// margin-left: 1.75rem;
+					font-weight: normal;
+				}
+
+				:global(.icon) {
+					margin-right: calc((24px + 0.25rem) * -1);
+				}
+
+				&:is(:hover, :focus-visible) {
+					background-color: var(--trim-hover);
+				}
+			}
+		}
+	}
+</style>

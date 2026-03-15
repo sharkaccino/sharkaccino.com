@@ -8,12 +8,9 @@ import GridArticle from "./GridArticle";
 import ListArticle from "./ListArticle";
 import BlogPost from "./BlogPost";
 import style from "./BaseBlogBrowser.module.scss";
-import SVGIcon from "../SVGIcon";
 import Pagination from "../Pagination";
 
 // TODO: mobile support
-
-// TODO: move search/filter algorithm to it's own file
 
 // TODO: reduce grid columns on smaller displays
 
