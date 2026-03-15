@@ -164,6 +164,7 @@ button, .linkButton {
 
 	&:is(:hover, :focus-visible) {
 		background-color: var(--secondary-box-bg-hover);
+    color: var(--text);
 	}
 }
 
