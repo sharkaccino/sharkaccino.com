@@ -25,21 +25,40 @@ const BlogPreviewRenderer: Component<{ postData?: PostData[] }> = (props) => {
 
     setPosts(posts);
     // console.debug(posts);
+  }).catch((err) => {
+    // this fetch doesnt work when rendered server-side
+    // but that's fine cus we just want it to at least 
+    // render the placeholder boxes
+
+    // though just incase it's something else that's wrong:
+    console.warn(err);
   });
 
   return (
     <div class={style.blogContainer}>
-      <For each={getPosts()}>
-        {(post) => {
-          return (
-            <GridArticle postData={post}/>
-          )
-        }}
-      </For>
-      <Show when={getPosts() != null && getPosts()?.length == 0}>
-        <h2 class={style.noResults}>
-          no blog posts yet. stay tuned!
-        </h2>
+      <Show when={getPosts() == null}>
+        <div class={style.placeholder}></div>
+        <div class={style.placeholder}></div>
+        <div class={style.placeholder}></div>
+      </Show>
+      <Show when={getPosts() != null}>
+        <For each={getPosts()}>
+          {(post) => {
+            return (
+              <GridArticle postData={post}/>
+            )
+          }}
+        </For>
+        <Show when={getPosts()!.length < 3}>
+          <h2 class={style.endOfResults}>
+            ...that's all, folks!
+          </h2>
+        </Show>
+        <Show when={getPosts()!.length == 0}>
+          <h2 class={style.noResults}>
+            no blog posts yet. stay tuned!
+          </h2>
+        </Show>
       </Show>
   	</div>
   )

@@ -33,7 +33,7 @@ import BlogPreviewRenderer from '../components/home/BlogPreviewRenderer'
 					<SVGIcon class="icon" src="/icons/chevron-right.svg" />
 				</a>
 			</div>
-			<BlogPreviewRenderer client:only/>
+			<BlogPreviewRenderer client:load/>
 		</div>
 	</main>
 </Base>
@@ -134,8 +134,6 @@ import BlogPreviewRenderer from '../components/home/BlogPreviewRenderer'
 				justify-content: center;
 				gap: 0.25rem;
 				width: calc((100% / 3) - (var(--content-gap-small) * 2));
-				background-color: var(--trim);
-				color: var(--box-bg);
 
 				h3 {
 					font-weight: normal;
@@ -143,10 +141,6 @@ import BlogPreviewRenderer from '../components/home/BlogPreviewRenderer'
 
 				:global(.icon) {
 					margin-right: calc((24px + 0.25rem) * -1);
-				}
-
-				&:is(:hover, :focus-visible) {
-					background-color: var(--trim-hover);
 				}
 			}
 		}
