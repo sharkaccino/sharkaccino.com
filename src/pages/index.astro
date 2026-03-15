@@ -2,11 +2,12 @@
 import Base from '../Base.astro';
 import LocalizedTime from '../components/home/LocalizedTime';
 import SVGIcon from '../components/SVGIcon';
+import BlogPreviewRenderer from '../components/home/BlogPreviewRenderer'
 ---
 
 <Base title="home">
-	<main class="contentBox medium home">
-		<div class="whoami">
+	<main class="medium home">
+		<div class="contentBox whoami">
 			<img src="/gallery/avatars/jackie-2025.png"/>
 			<div class="infocard">
 				<div class="oneliner">
@@ -24,6 +25,16 @@ import SVGIcon from '../components/SVGIcon';
 				</a>
 			</div>
 		</div>
+		<div class="contentBox blogPosts">
+			<div class="blogHeader">
+				<h1>latest blog posts</h1>
+				<a href="/blog" class="linkButton">
+					<h3>view more</h3>
+					<SVGIcon class="icon" src="/icons/chevron-right.svg" />
+				</a>
+			</div>
+			<BlogPreviewRenderer client:only/>
+		</div>
 	</main>
 </Base>
 
@@ -31,8 +42,7 @@ import SVGIcon from '../components/SVGIcon';
 	.home {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		padding: var(--content-gap-large);
+		gap: var(--content-gap-small);
 	}
 
 	.whoami {
@@ -42,6 +52,7 @@ import SVGIcon from '../components/SVGIcon';
 		justify-content: center;
 		width: 100%;
 		gap: var(--content-gap-large);
+		padding: var(--content-gap-large);
 
 		img {
 			width: 12rem;
@@ -91,6 +102,42 @@ import SVGIcon from '../components/SVGIcon';
 
 				h3 {
 					// margin-left: 1.75rem;
+					font-weight: normal;
+				}
+
+				:global(.icon) {
+					margin-right: calc((24px + 0.25rem) * -1);
+				}
+
+				&:is(:hover, :focus-visible) {
+					background-color: var(--trim-hover);
+				}
+			}
+		}
+	}
+
+	.blogPosts {
+		padding: var(--content-gap-medium);
+
+		.blogHeader {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			margin-bottom: var(--content-gap-small);
+
+			h1 {
+				margin: 0;
+			}
+
+			a {
+				display: flex;
+				justify-content: center;
+				gap: 0.25rem;
+				width: calc((100% / 3) - (var(--content-gap-small) * 2));
+				background-color: var(--trim);
+				color: var(--box-bg);
+
+				h3 {
 					font-weight: normal;
 				}
 

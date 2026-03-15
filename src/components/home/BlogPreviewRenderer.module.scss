@@ -1,0 +1,13 @@
+.blogContainer {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	width: 100%;
+	gap: var(--content-gap-small);
+
+	.noResults {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		grid-area: 1 / span 3;
+	}
+}
