@@ -13,8 +13,6 @@ import PlaceholderArticle from "./PlaceholderArticle";
 
 // TODO: mobile support
 
-// TODO: reduce grid columns on smaller displays
-
 const noResultStrings = [
   `no results found`,
   `behold, nothing`,
