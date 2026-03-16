@@ -1,0 +1,288 @@
+---
+import Base from '../Base.astro';
+import SVGIcon from '../components/SVGIcon';
+
+// TODO: fix checkbox accessibility
+
+// TODO: fix checkbox styling, make global?
+
+// TODO: add notes to peripherals, VR
+
+// TODO: add software buttons
+
+// TODO: not 100% sure on the icons for the headers, might remove
+
+---
+
+<Base title="equipment">
+	<main class="contentBox small">
+		<h1>
+			<SVGIcon src="/icons/tool.svg" class="icon"/>
+			software
+		</h1>
+		<p>TODO</p>
+		<h1>
+			<SVGIcon src="/icons/devices-pc.svg" class="icon"/>
+			pc hardware
+		</h1>
+		<input type="checkbox" id="pcDetails" autocomplete="off" />
+		<label for="pcDetails" class="checkboxLabel">show full details</label>
+		<ul>
+			<li>
+				<b>os:</b>
+				<span>Debian Linux 13 (KDE Plasma 6)</span>
+			</li>
+			<li>
+				<b>cpu:</b>
+				<span>AMD Ryzen 7 7700X</span>
+			</li>
+			<li class="pcHidden">
+				<b>cooler:</b>
+				<span>Cooler Master MasterLiquid 240 ATMOS Stealth</span>
+			</li>
+			<li class="pcHidden">
+				<b>motherboard:</b>
+				<span>Gigabyte B650I AORUS ULTRA</span>
+			</li>
+			<li>
+				<b>gpu:</b>
+				<span>Sapphire PULSE Radeon RX 7900 XTX</span>
+			</li>
+			<li>
+				<b>ram:</b>
+				<span>G.Skill Trident Z 2x16GB DDR5 6000Mhz CL30</span>
+			</li>
+			<li>
+				<b>storage:</b>
+				<span>WD_BLACK SN7100 2TB NVMe</span>
+			</li>
+			<li class="pcHidden">
+				<b>case:</b>
+				<span>Lian Li A4-H20 X4</span>
+			</li>
+			<li class="pcHidden">
+				<b>psu:</b>
+				<span>Corsair SF1000 (2024)</span>
+			</li>
+			<li class="pcHidden">
+				<b>miscellaneous:</b>
+				<div class="sublist">
+					<span>Thermal Grizzly KryoSheet</span>
+					<span>Thermal Grizzly AM5 Contact Frame</span>
+					<span>LINKUP AVA5 PCIe 5.0 Double Reverse 19cm Riser Cable</span>
+					<span>CyberPower CP1500AVRLCD3 UPS</span>
+				</div>
+			</li>
+		</ul>
+		<div class="pcHidden textWall">
+			<h2>notes about this build</h2>
+			<p>
+				i built this SFF pc myself in the middle of 2025, and it's been absolutely fantastic. no performance issues at all, virtually silent at idle, and temps are great (idles around 50&deg;C). the only problem is how loud the fans can get under load, but i suppose that's expected for a super compact build like this. that said, there <em>are</em> a handful of things i've been wanting to change.
+			</p>
+			<h3>cpu</h3>
+			<p>
+				my 7700X really isn't bad at all, but it is noticeably lagging behind quite a bit when working in blender, especially when it comes to high-poly models. so i'm hoping someday i can get my hands on a 9950X (or maybe even a 9950X3D). not only is this an incredibly powerful endgame CPU, but the 9000 series chips have this updated die design which is supposed to help a lot with cooling performance (which is VERY important for SFF builds like this).
+			</p>
+			<h3>motherboard</h3>
+			<p>
+				i'm interested in upgrading to a different motherboard for a handful of reasons:
+				<ol>
+					<li>
+						i'd like easier access to <em>both</em> M.2 slots.
+					</li>
+					<li>
+						i want debug LEDs. it's not the stone age anymore, come on.
+					</li>
+					<li>
+						easier access to certain headers (for instance, the F_AUDIO header is borderline completely inaccessible with my current board, because they put it underneath the fucking SSD heatsink for some ungodly reason)
+					</li>
+				</ol>
+			</p>
+			<h3>storage</h3>
+			<p>
+				i used to have 2 drives in my pc before i made the switch to this new build. one was for my OS/apps/games, and another was strictly for OBS recording storage. i really wanna be able to record stuff without worrying about storage space again, so at some point i'd like to invest in another 2TB NVMe drive.
+			</p>
+			<h3>fans</h3>
+			<p>
+				the fans that were included with my AIO cooler are perfectly fine, but i really would like to see how noctua fans compare. noctua is pretty well known for making quiet but powerful PC fans, and i could really use that.
+			</p>
+		</div>
+		<h1>
+			<SVGIcon src="/icons/mouse-2.svg" class="icon"/>
+			peripherals
+		</h1>
+		<ul>
+			<li>
+				<b>display:</b>
+				<span>ViewSonic VP3481 (3440 x 1440 @ 100Hz)</span>
+			</li>
+			<li>
+				<b>keyboard:</b>
+				<span>Keychron V3 w/ K Pro Mint Switches, XDA profile keycaps</span>
+			</li>
+			<li>
+				<b>mouse:</b>
+				<span>Keychron M3 Mini 4K Metal Edition, 1000 DPI</span>
+			</li>
+			<li>
+				<b>mouse pad:</b>
+				<span>Pulsar Superglide XXL</span>
+			</li>
+			<li>
+				<b>gamepad:</b>
+				<span>PlayStation DualSense Wireless</span>
+			</li>
+			<li>
+				<b>microphone:</b>
+				<span>Razer Seiren Mini</span>
+			</li>
+			<li>
+				<b>headphones:</b>
+				<span>Bose QuietComfort Wireless</span>
+			</li>
+		</ul>
+		<p>TODO</p>
+		<h1>
+			<SVGIcon src="/icons/device-vision-pro.svg" class="icon"/>
+			vr
+		</h1>
+		<ul>
+			<li>
+				<b>headset:</b>
+				<span>Meta Quest 3</span>
+			</li>
+			<li>
+				<b>controllers:</b>
+				<span>Meta Quest Touch Pro Controllers</span>
+			</li>
+			<li>
+				<b>other accessories:</b>
+				<div class="sublist">
+					<span>KIWI Design K3 Boost Battery Head Strap</span>
+					<span>VR Cover Quest 2 Controller Grips</span>
+				</div>
+			</li>
+		</ul>
+		<p>TODO</p>
+	</main>
+</Base>
+
+<style lang="scss">
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: var(--content-gap-large);
+
+		h1:first-child {
+			margin: 0;
+		}
+
+		h1 {
+			display: flex;
+			flex-direction: row;
+			gap: 0.5rem;
+			align-items: center;
+			width: 100%;
+			margin-top: var(--content-gap-large);
+			margin-bottom: 0;
+
+			> :global(.icon) {
+				// display: none;
+				width: auto;
+				height: 2rem;
+				aspect-ratio: 1;
+			}
+		}
+
+		p {
+			margin: 0;
+			margin-bottom: var(--content-gap-medium);
+		}
+
+		> ul {
+			display: flex;
+			flex-direction: column;
+			list-style: none;
+			width: 100%;
+			padding: 0;
+
+			li {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				gap: var(--content-gap-small);
+				padding: 0.5rem 0.75rem;
+
+				&:nth-child(odd) {
+					background-color: var(--secondary-box-bg);
+				}
+
+				span {
+					text-align: right;
+				}
+
+				.sublist {
+					display: flex;
+					flex-direction: column;
+					gap: 1rem;
+				}
+			}
+		}
+
+		input[type="checkbox"] {
+			appearance: none;
+		}
+
+		.checkboxLabel {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 0.5em;
+			padding-left: 1.75rem;
+			user-select: none;
+			align-self: flex-end;
+
+			&:before, &:after {
+				content: '';
+				position: absolute;
+				left: 0;
+				display: block;
+				width: 1.25rem;
+				height: auto;
+				aspect-ratio: 1;
+			}
+
+			&:before {
+				background-color: var(--secondary-box-bg);
+			}
+
+			&:after {
+				display: none;
+				background-color: var(--box-bg);
+				mask-image: url('/icons/check.svg');
+				mask-size: contain;
+			}
+		}
+
+		input:checked ~ label {
+			&:before {
+				background-color: var(--trim);
+			}
+
+			&:after {
+				display: block;
+			}
+		}
+
+		#pcDetails:not(:checked) ~ ul .pcHidden,
+		#pcDetails:not(:checked) ~ .pcHidden {
+			display: none;
+		}
+
+		.textWall {
+			width: 80%;
+		}
+	}
+</style>
