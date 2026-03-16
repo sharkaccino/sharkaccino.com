@@ -19,10 +19,9 @@ const SearchForm: Component = () => {
 
   let initialTextValue = ``;
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const searchParam = urlParams.get(`search`) ;
-  const sortParam = urlParams.get(`sort`);
-  if (searchParam != null) initialTextValue = searchParam;
+  let urlParams = new URLSearchParams(``);
+  let searchParam: string|null = ``;
+  let sortParam: string|null = ``;
 
   const handleTextInput = (ev: InputEvent) => {
     if (ev.target instanceof HTMLInputElement == false) return;
@@ -87,6 +86,11 @@ const SearchForm: Component = () => {
   }
 
   onMount(() => {
+    urlParams = new URLSearchParams(window.location.search);
+    searchParam = urlParams.get(`search`);
+    sortParam = urlParams.get(`sort`);
+    if (searchParam != null) initialTextValue = searchParam;
+
     if (sortParam != null) {
       for (const child of sortElem.children) {
         if (child instanceof HTMLOptionElement == false) continue;

@@ -1,63 +1,28 @@
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
 .blogContainer {
+	position: relative;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	width: 100%;
 	gap: var(--content-gap-small);
 
-	.placeholder {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	> * {
 		aspect-ratio: 1.5;
-		background-color: var(--secondary-box-bg);
-
-		&:after {
-			content: '';
-			display: block;
-			aspect-ratio: 1;
-			width: auto;
-			height: 4rem;
-			border-radius: 50%;
-			padding: 0.25rem;
-			background-image: 
-				linear-gradient(var(--secondary-box-bg), var(--secondary-box-bg)),
-				conic-gradient(
-					transparent 20%, 
-					var(--text) 40%, 
-					var(--text) 60%, 
-					transparent 80%);
-			background-clip: 
-				content-box,
-				padding-box;
-			opacity: 0.5;
-			animation-name: spin;
-			animation-timing-function: linear;
-			animation-duration: 750ms;
-			animation-iteration-count: infinite;
-			animation-play-state: running;
-		}
 	}
 
 	.noResults {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		grid-area: 1 / span 3;
+		margin: 0;
+		grid-area: 1 / 2 / 1 / 2;
+		opacity: 0.5;
 	}
 
 	.endOfResults {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		margin: 0;
 		opacity: 0.5;
 	}
 }

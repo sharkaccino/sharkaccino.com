@@ -1,9 +1,24 @@
 ---
 import Base from '../Base.astro';
 import BlogBrowser from '../components/blog/BaseBlogBrowser';
+import PlaceholderArticle from '../components/blog/PlaceholderArticle';
 
 ---
 
 <Base title="blog">
-	<BlogBrowser client:only />
+	<BlogBrowser client:only="solid-js">
+		<div class="contentBox loadContainer" slot="fallback">
+			<PlaceholderArticle />
+		</div>
+	</BlogBrowser>
 </Base>
+
+<style lang="scss">
+	.loadContainer {
+		padding: var(--content-gap-medium);
+
+		> :global(*) {
+			padding: var(--content-gap-large);
+		}
+	}
+</style>

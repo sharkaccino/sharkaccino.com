@@ -48,21 +48,17 @@
 
 	.gridView, .listView, .dashView {
 		position: relative;
-		display: flex;
-		align-items: flex-start;
 		gap: var(--content-gap-small);
 		width: 100%;
 	}
 
 	.gridView {
-		$columns: 4;
-
-		flex-direction: row;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
 		padding: var(--content-gap-medium);
 
-		> *:not(.listEndCap) {
-			flex-basis: calc(((100% - (var(--content-gap-small) * ($columns - 1))) / $columns));
+		> * {
+			aspect-ratio: 1.5;
 		}
 
 		.listEndCap {
@@ -71,13 +67,26 @@
 	}
 
 	.listView {
+		display: flex;
+		align-items: flex-start;
 		flex-direction: column;
 		padding: 0;
+
+		> * {
+			width: 100%;
+			height: 10rem;
+		}
 	}
 
 	.dashView {
+		display: flex;
+		align-items: flex-start;
 		flex-direction: column;
 		padding: 0;
+
+		> * {
+			width: 100%;
+		}
 	}
 
 	.listEndCap {

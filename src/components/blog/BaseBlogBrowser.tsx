@@ -1,4 +1,4 @@
-import { type Component, createSignal, For, Show } from "solid-js";
+import { type Component, createSignal, For, onMount, Show } from "solid-js";
 import { RandomStringinator } from "../../util/randomString";
 import { type BlogAPIResults, type PostData } from "../../util/blogPostTools";
 import { viewMode } from "../../state/blogBrowserStateManager";
@@ -9,41 +9,42 @@ import ListArticle from "./ListArticle";
 import BlogPost from "./BlogPost";
 import style from "./BaseBlogBrowser.module.scss";
 import Pagination from "../Pagination";
+import PlaceholderArticle from "./PlaceholderArticle";
 
 // TODO: mobile support
 
 // TODO: reduce grid columns on smaller displays
 
+const noResultStrings = [
+  `no results found`,
+  `behold, nothing`,
+  `wow it's nothing`,
+  `sadly, it's empty`,
+  `i ate those posts, sorry`,
+  `no posts to be found here`,
+  `nothing but dust here`
+];
+
 const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
   const [ getViewMode, setViewMode ] = viewMode;
-  const [ getPosts, setPosts ] = createSignal<PostData[]>([]);
+  const [ getPosts, setPosts ] = createSignal<PostData[]|null>(null);
   const [ getCurrentPage, setCurrentPage ] = createSignal<number>(1);
   const [ getPageCount, setPageCount ] = createSignal<number>(1);
   const [ getNextPage, setNextPage ] = createSignal<string>(``);
   const [ getPrevPage, setPrevPage ] = createSignal<string>(``);
+
+  let urlParams = new URLSearchParams(``);
+
+  const stringinator = new RandomStringinator(noResultStrings);
 
   const vmSelect = window.localStorage.getItem(`blogLayout`);
   if (vmSelect != null) {
     setViewMode(vmSelect as (`grid`|`list`|`dash`));
   }
 
-  const noResultStrings = [
-    `no results found`,
-    `behold, nothing`,
-    `wow it's nothing`,
-    `sadly, it's empty`,
-    `i ate those posts, sorry`,
-    `no posts to be found here`,
-    `nothing but dust here`
-  ];
+  onMount(() => {
+    urlParams = new URLSearchParams(window.location.search);
 
-  const stringinator = new RandomStringinator(noResultStrings);
-
-  const urlParams = new URLSearchParams(window.location.search);
-
-  if (props.postData != null) {
-    setPosts(props.postData);
-  } else {
     console.debug(window.location.search);
     fetch(`/api/blog/posts${window.location.search}`).then(async (response) => {
       const json: BlogAPIResults = await response.json();
@@ -97,9 +98,7 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
       setPosts(posts);
       console.debug(posts);
     });
-  }
-
-  window.sessionStorage.setItem(`returnPage`, window.location.toString());
+  });
 
   return (
     <div
@@ -127,39 +126,48 @@ const BlogBrowser: Component<{ postData?: PostData[] }> = (props) => {
 
       <main 
         classList={{ 
-          [`${style.gridView} contentBox`]: getViewMode() == `grid`,
-          [style.listView]: getViewMode() == `list`,
-          [style.dashView]: getViewMode() == `dash`
+          "contentBox": getViewMode() === `grid`,
+          [style.gridView]: getViewMode() === `grid`,
+          [style.listView]: getViewMode() === `list`,
+          [style.dashView]: getViewMode() === `dash`
         }}
       >
-        <For each={getPosts()}>
-          {(post) => {
-            return (
-              <>
-                <Show when={getViewMode() == `grid`}>
-                  <GridArticle postData={post}/>
-                </Show>
-                <Show when={getViewMode() == `list`}>
-                  <ListArticle postData={post}/>
-                </Show>
-                <Show when={getViewMode() == `dash`}>
-                  <BlogPost postData={post}/>
-                </Show>
-              </>
-            )
-          }}
-        </For>
-        <Show when={getPosts().length == 0}>
-          <div 
-            class={style.listEndCap}
-            classList={{
-              "contentBox": getViewMode() !== `grid`
+        <Show when={getPosts() == null}>
+          <PlaceholderArticle />
+          <PlaceholderArticle />
+          <PlaceholderArticle />
+          <PlaceholderArticle />
+        </Show>
+        <Show when={getPosts() != null}>
+          <For each={getPosts()}>
+            {(post) => {
+              return (
+                <>
+                  <Show when={getViewMode() == `grid`}>
+                    <GridArticle postData={post}/>
+                  </Show>
+                  <Show when={getViewMode() == `list`}>
+                    <ListArticle postData={post}/>
+                  </Show>
+                  <Show when={getViewMode() == `dash`}>
+                    <BlogPost postData={post}/>
+                  </Show>
+                </>
+              )
             }}
-          >
-            <h2 class={style.noResults}>
-              {stringinator.getCurrentString()}
-            </h2>
-          </div>
+          </For>
+          <Show when={getPosts()!.length == 0}>
+            <div 
+              class={style.listEndCap}
+              classList={{
+                "contentBox": getViewMode() !== `grid`
+              }}
+            >
+              <h2 class={style.noResults}>
+                {stringinator.getCurrentString()}
+              </h2>
+            </div>
+          </Show>
         </Show>
       </main>
 
