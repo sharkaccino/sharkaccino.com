@@ -1,30 +1,15 @@
 ---
 import Base from '../Base.astro';
-import SVGIcon from '../components/SVGIcon';
 
 // TODO: fix checkbox accessibility
 
 // TODO: fix checkbox styling, make global?
 
-// TODO: add notes to peripherals, VR
-
-// TODO: add software buttons
-
-// TODO: not 100% sure on the icons for the headers, might remove
-
 ---
 
 <Base title="equipment">
 	<main class="contentBox small">
-		<h1>
-			<SVGIcon src="/icons/tool.svg" class="icon"/>
-			software
-		</h1>
-		<p>TODO</p>
-		<h1>
-			<SVGIcon src="/icons/devices-pc.svg" class="icon"/>
-			pc hardware
-		</h1>
+		<h1>pc hardware</h1>
 		<input type="checkbox" id="pcDetails" autocomplete="off" />
 		<label for="pcDetails" class="checkboxLabel">show full details</label>
 		<ul>
@@ -74,8 +59,10 @@ import SVGIcon from '../components/SVGIcon';
 				</div>
 			</li>
 		</ul>
-		<div class="pcHidden textWall">
-			<h2>notes about this build</h2>
+		<details>
+			<summary>
+				<h2>notes and upgrade ideas</h2>
+			</summary>
 			<p>
 				i built this SFF pc myself in the middle of 2025, and it's been absolutely fantastic. no performance issues at all, virtually silent at idle, and temps are great (idles around 50&deg;C). the only problem is how loud the fans can get under load, but i suppose that's expected for a super compact build like this. that said, there <em>are</em> a handful of things i've been wanting to change.
 			</p>
@@ -94,7 +81,7 @@ import SVGIcon from '../components/SVGIcon';
 						i want debug LEDs. it's not the stone age anymore, come on.
 					</li>
 					<li>
-						easier access to certain headers (for instance, the F_AUDIO header is borderline completely inaccessible with my current board, because they put it underneath the fucking SSD heatsink for some ungodly reason)
+						easier access to certain headers (for instance, the F_AUDIO header is borderline impossible to access on my current board because some genius thought it'd be a great idea to put it underneath the fucking SSD heatsink)
 					</li>
 				</ol>
 			</p>
@@ -106,11 +93,8 @@ import SVGIcon from '../components/SVGIcon';
 			<p>
 				the fans that were included with my AIO cooler are perfectly fine, but i really would like to see how noctua fans compare. noctua is pretty well known for making quiet but powerful PC fans, and i could really use that.
 			</p>
-		</div>
-		<h1>
-			<SVGIcon src="/icons/mouse-2.svg" class="icon"/>
-			peripherals
-		</h1>
+		</details>
+		<h1>peripherals</h1>
 		<ul>
 			<li>
 				<b>display:</b>
@@ -141,11 +125,30 @@ import SVGIcon from '../components/SVGIcon';
 				<span>Bose QuietComfort Wireless</span>
 			</li>
 		</ul>
-		<p>TODO</p>
-		<h1>
-			<SVGIcon src="/icons/device-vision-pro.svg" class="icon"/>
-			vr
-		</h1>
+		<details>
+			<summary>
+				<h2>more notes</h2>
+			</summary>
+			<p>i don't have much to say here compared to my pc specs, but there are a couple things i'm really hoping to get one of these days.</p>
+			<h3>display</h3>
+			<p>
+				getting an ultrawide monitor was one of the best decisions i've made in the past decade. they really do give an incredible boost to your productivity, and the extra FOV in games is awesome to have too (when it's supported, anyway). that said, after having this thing for a little over 5 years, i think it's starting to show its age. there's a noticeable large dark spot towards the center, and there's some kind of backlight bleed creeping in from the bottom edge. so i figured, if i'm gonna replace this monitor, i might as well dive deeper into the ultrawide stuff.
+			</p>
+			<p>
+				i've been thinking of getting an LG UltraGear 45GR65DC-B (creative name as ever, guys). this thing is really ticking all the right boxes for me, compared to my current monitor:
+			</p>
+			<ul>
+				<li>32:9 (5120 x 1440), as opposed to 21:9 (3440 x 1440)</li>
+				<li>1ms response time, as opposed to 5ms</li>
+				<li>95% DCI-P3, as opposed to 88% (even more color accurate!)</li>
+				<li>200hz, exactly <em>double</em> the refresh rate</li>
+			</ul>
+			<p>most importantly, it's not an OLED panel that will inevitably suffer from burn-in after a few years.</p>
+			<h3>gamepad</h3>
+			<p>the dualsense is a fantastic controller for pc gaming, especially on linux since the driver is already included in the kernel. it quite literally just works, even over a bluetooth connection. that said, i will <em>absolutely</em> sell this thing without a second thought the moment i get my hands on the new steam controller.</p>
+			<p>(valve pls)</p>
+		</details>
+		<h1>vr</h1>
 		<ul>
 			<li>
 				<b>headset:</b>
@@ -163,7 +166,71 @@ import SVGIcon from '../components/SVGIcon';
 				</div>
 			</li>
 		</ul>
-		<p>TODO</p>
+		<details>
+			<summary>
+				<h2>even more notes</h2>
+			</summary>
+			<p>please valve i just want a steam frame im so sick of dogshit meta products please please please please please plea</p>
+		</details>
+		<h1>software</h1>
+		<div class="buttonWall">
+			<div>
+				<a href="https://www.blender.org/">
+					<img src="/icons/logos/blender.svg"/>
+					<h2>blender</h2>
+				</a>
+				<p>artwork, graphic design</p>
+			</div>
+			<div>
+				<a href="https://vscodium.com/">
+					<img src="/icons/logos/vscodium.svg"/>
+					<h2>vscodium</h2>
+				</a>
+				<p>programming, text editing</p>
+			</div>
+			<div>
+				<a href="https://godotengine.org/">
+					<img src="/icons/logos/godot.svg"/>
+					<h2>godot</h2>
+				</a>
+				<p>game/app development</p>
+			</div>
+			<div>
+				<a href="https://www.gimp.org/">
+					<img src="/icons/logos/gimp.svg"/>
+					<h2>gimp</h2>
+				</a>
+				<p>image editing</p>
+			</div>
+			<div>
+				<a href="https://obsproject.com/">
+					<img src="/icons/logos/obs.svg"/>
+					<h2>obs studio</h2>
+				</a>
+				<p>game/screen recording</p>
+			</div>
+			<div>
+				<a href="https://kdenlive.org/">
+					<img src="/icons/logos/kdenlive.svg"/>
+					<h2>kdenlive</h2>
+				</a>
+				<p>video editing</p>
+			</div>
+			<div>
+				<a href="https://inkscape.org/">
+					<img src="/icons/logos/inkscape.svg"/>
+					<h2>inkscape</h2>
+				</a>
+				<p>vector image editing</p>
+			</div>
+			<div>
+				<a href="https://tenacityaudio.org/">
+					<img src="/icons/logos/tenacity.svg"/>
+					<h2>tenacity</h2>
+				</a>
+				<p>audio editing</p>
+			</div>
+		</div>
 	</main>
 </Base>
 
@@ -174,11 +241,11 @@ import SVGIcon from '../components/SVGIcon';
 		align-items: center;
 		padding: var(--content-gap-large);
 
-		h1:first-child {
+		> h1:first-child {
 			margin: 0;
 		}
 
-		h1 {
+		> h1 {
 			display: flex;
 			flex-direction: row;
 			gap: 0.5rem;
@@ -186,16 +253,45 @@ import SVGIcon from '../components/SVGIcon';
 			width: 100%;
 			margin-top: var(--content-gap-large);
 			margin-bottom: 0;
+		}
 
-			> :global(.icon) {
-				// display: none;
-				width: auto;
-				height: 2rem;
-				aspect-ratio: 1;
+		.buttonWall {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			width: 100%;
+			gap: var(--content-gap-small);
+			margin-top: 1rem;
+
+			> * {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				aspect-ratio: 1.4;
+				text-align: center;
+
+				a {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					width: 100%;
+
+					img {
+						aspect-ratio: 1;
+						width: 5rem;
+					}
+
+					h2 {
+						margin: 0;
+					}
+				}
+
+				p {
+					margin: 0;
+				}
 			}
 		}
 
-		p {
+		> p {
 			margin: 0;
 			margin-bottom: var(--content-gap-medium);
 		}
@@ -216,6 +312,12 @@ import SVGIcon from '../components/SVGIcon';
 
 				&:nth-child(odd) {
 					background-color: var(--secondary-box-bg);
+				}
+
+				> b {
+					display: flex;
+					flex-direction: row;
+					gap: 0.4rem;
 				}
 
 				span {
@@ -281,8 +383,49 @@ import SVGIcon from '../components/SVGIcon';
 			display: none;
 		}
 
-		.textWall {
+		details {
 			width: 80%;
+
+			:where(&[open], &:open) > summary:before {
+				transform: rotate(90deg);
+			}
+
+			> summary {
+				position: relative;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				list-style: none;
+
+				&:before {
+					content: '';
+					position: absolute;
+					right: 100%;
+					margin-right: 0.25rem;
+					display: inline-block;
+					width: auto;
+					height: 1.75rem;
+					aspect-ratio: 1;
+					background-color: var(--text);
+					mask-image: url('/icons/chevron-right.svg');
+					mask-size: contain;
+				}
+
+				&::marker {
+					display: none;
+				}
+
+				h2 {
+					user-select: none;
+					display: inline-block;
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 800px) {
+		main > .buttonWall {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 </style>
