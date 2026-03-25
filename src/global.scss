@@ -16,7 +16,7 @@
   src: url("/AtkinsonHyperlegibleNext-Bold.ttf") format("truetype")
 }
 
-:root {
+:root, :root.light {
   --box-bg: #fafafa;
   --secondary-box-bg: #e9e9e9;
   --secondary-box-bg-hover: #ebcdd6;
@@ -48,6 +48,27 @@
     --trim: #ffb581;
     --trim-hover: #ffd2b2;
   }
+}
+
+/**
+!!! WARNING !!!
+
+^^^
+make sure all of these property values are identical!
+vvv
+
+!!! WARNING !!!
+**/
+
+:root.dark {
+  --box-bg: #232229;
+  --secondary-box-bg: #15151a;
+  --secondary-box-bg-hover: #0a0a0c;
+  --footer-bg: #232229;
+  --footer-text: #dbd6dd;
+  --text: #dbd6dd;
+  --trim: #ffb581;
+  --trim-hover: #ffd2b2;
 }
 
 body {

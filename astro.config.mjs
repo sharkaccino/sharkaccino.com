@@ -9,6 +9,7 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   integrations: [solidJs(), mdx()],
   site: `https://sharkaccino.com`,
+  output: `server`,
   server: {
     port: 3000
   }

@@ -1,4 +1,7 @@
 ---
+import SVGIcon from "./SVGIcon";
+import ThemeSwitcher from "./ThemeSwitcher";
+
 function checkPage(name: string): string {
   const match = Astro.routePattern.match(`^\/[^\/]{0,}`);
   if (match == null) return ``;
@@ -11,9 +14,13 @@ function checkPage(name: string): string {
 
 <header>
   <div class="headerContent">
-    <a class={checkPage(`/`)} href="/">
-      home
+    <a class="title" href="/">
+      <img src="/favicon.svg" />
+      <h2>sharkaccino</h2>
     </a>
+    <!-- <a class={checkPage(`/`)} href="/">
+      home
+    </a> -->
     <a class={checkPage(`/blog`)} href="/blog">
       blog
     </a>
@@ -32,6 +39,13 @@ function checkPage(name: string): string {
     <a class={checkPage(`/links`)} href="/links">
       links
     </a>
+    <div class="themeSwitch">
+      <SVGIcon src="icons/theme-switch/sun.svg"/>
+      <label>
+        <ThemeSwitcher client:only/>
+      </label>
+      <SVGIcon src="icons/theme-switch/moon.svg"/>
+    </div>
   </div>
 </header>
 
@@ -53,9 +67,35 @@ function checkPage(name: string): string {
       justify-content: center;
       width: 100%;
       height: 100%;
-      max-width: var(--content-width-large);
+      max-width: var(--content-width-medium);
 
-      a {
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        height: 100%;
+        margin-right: auto;
+        color: var(--text);
+
+        img {
+          height: 100%;
+          background-color: var(--trim);
+          // cursed method of achieving recolorable img while preserving context menu functionality
+          object-position: 100vh 100vh;
+          mask-image: 
+            url('/favicon.svg'),
+            linear-gradient(#000 0 0);
+          mask-composite: exclude;
+          mask-mode: luminance;
+        }
+
+        h2 {
+          font-weight: normal;
+        }
+      }
+
+      a:not(.title) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -72,6 +112,69 @@ function checkPage(name: string): string {
           }
         }
       }
+
+      .themeSwitch {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.25rem;
+        margin-left: var(--content-gap-large);
+
+        label {
+          position: relative;
+          display: block;
+          width: var(--content-gap-large);
+          height: var(--content-gap-medium);
+          border: 2px solid var(--text);
+          border-radius: 9999px;
+          box-sizing: border-box;
+
+          &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            aspect-ratio: 1;
+            background-color: var(--text);
+            border-radius: 9999px;
+            margin: 2px;
+            transition: all 250ms var(--anim-timing);
+          }
+
+          :global(input) {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            appearance: none;
+            border: none;
+            background: none;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  // doing this instead of just looking at the checkbox because 
+  // this way the switch doesn't flicker on page loads
+
+  @media screen and (prefers-color-scheme: dark) {
+    :root {
+      header .themeSwitch > label:before {
+        left: 100%;
+        transform: translateX(calc((100% + 4px) * -1));
+      }
+    }
+  }
+
+  :root.dark {
+    header .themeSwitch > label:before {
+      left: 100%;
+      transform: translateX(calc((100% + 4px) * -1));
     }
   }
 </style>

@@ -5,12 +5,18 @@ import './global.scss';
 
 // TODO: fix embed/opengraph contents
 
+let theme = ``;
+
+if (Astro.cookies.has(`theme`)) {
+  theme = Astro.cookies.get(`theme`)!.value;
+}
+
 const { title } = Astro.props;
 
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class={theme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
