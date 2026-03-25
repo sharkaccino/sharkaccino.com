@@ -21,10 +21,10 @@ const ThemeSwitcher: Component = () => {
     console.debug(checkbox.checked);
 
     if (checkbox.checked) {
-      document.cookie = `theme=dark;`;
+      document.cookie = `theme=dark; path=/`;
       document.documentElement.className = `dark`;
     } else {
-      document.cookie = `theme=light;`;
+      document.cookie = `theme=light; path=/`;
       document.documentElement.className = `light`;
     }
   }
