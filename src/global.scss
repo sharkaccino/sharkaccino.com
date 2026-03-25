@@ -22,9 +22,15 @@
   --secondary-box-bg-hover: #ebcdd6;
   --footer-bg: #2c1c29;
   --footer-text: #ddc0ce;
-  --text: #232229;
+  --text: #211c2f;
   --trim: #922d5c;
   --trim-hover: #a33a6b;
+  --avatar-outline: #00000000;
+  --big-post-bg: var(--trim);
+  --big-post-bg-hover: var(--trim-hover);
+  --big-post-text: var(--box-bg);
+  --big-post-text-hover: var(--box-bg);
+  --big-post-meta-text: var(--box-bg);
 
   --anim-timing: cubic-bezier(0,.65,.5,1);
 
@@ -39,14 +45,20 @@
 
 @media screen and (prefers-color-scheme: dark) {
   :root {
-    --box-bg: #232229;
-    --secondary-box-bg: #15151a;
-    --secondary-box-bg-hover: #0a0a0c;
-    --footer-bg: #232229;
+    --box-bg: #191522;
+    --secondary-box-bg: #302a3a;
+    --secondary-box-bg-hover: #3d3549;
+    --footer-bg: #191522;
     --footer-text: #dbd6dd;
     --text: #dbd6dd;
     --trim: #ffb581;
     --trim-hover: #ffd2b2;
+    --avatar-outline: #fff;
+    --big-post-bg: var(--secondary-box-bg);
+    --big-post-bg-hover: var(--secondary-box-bg-hover);
+    --big-post-text: var(--trim);
+    --big-post-text-hover: var(--trim-hover);
+    --big-post-meta-text: var(--text);
   }
 }
 
@@ -61,14 +73,20 @@ vvv
 **/
 
 :root.dark {
-  --box-bg: #232229;
-  --secondary-box-bg: #15151a;
-  --secondary-box-bg-hover: #0a0a0c;
-  --footer-bg: #232229;
+  --box-bg: #191522;
+  --secondary-box-bg: #302a3a;
+  --secondary-box-bg-hover: #3d3549;
+  --footer-bg: #191522;
   --footer-text: #dbd6dd;
   --text: #dbd6dd;
   --trim: #ffb581;
   --trim-hover: #ffd2b2;
+  --avatar-outline: #fff;
+  --big-post-bg: var(--secondary-box-bg);
+  --big-post-bg-hover: var(--secondary-box-bg-hover);
+  --big-post-text: var(--trim);
+  --big-post-text-hover: var(--trim-hover);
+  --big-post-meta-text: var(--text);
 }
 
 body {

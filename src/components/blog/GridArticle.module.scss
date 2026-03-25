@@ -1,11 +1,11 @@
 .gridArticle {
-	text-decoration-color: transparent;
+	text-decoration: none;
+	color: var(--big-post-text);
 
   article {
   	$gridPostPad: 1rem;
   	position: relative;
-  	background-color: var(--trim);
-  	color: var(--box-bg);
+  	background-color: var(--big-post-bg);
   	display: flex;
   	flex-direction: column;
   	height: 100%;
@@ -13,7 +13,7 @@
 		box-sizing: border-box;
 
 		&:is(:hover, :focus-visible) {
-			background-color: var(--trim-hover);
+			background-color: var(--big-post-bg-hover);
 		}
 
   	.featuredImage {
@@ -22,8 +22,8 @@
   		height: auto;
 			aspect-ratio: 2.33;
   		margin: calc($gridPostPad * -1);
-  		background-color: var(--trim);
-  		mask-image: linear-gradient(to bottom, #666, black);
+  		background-color: var(--big-post-bg);
+  		mask-image: linear-gradient(to bottom, #444, black);
   		mask-mode: luminance;
   		mask-size: cover;
 
@@ -71,6 +71,11 @@
   		}
   	}
 
+		span {
+			color: var(--big-post-meta-text);
+			text-decoration-color: var(--big-post-meta-text);
+		}
+
   	.updated {
   		opacity: 0.5;
   	}
@@ -78,6 +83,9 @@
 }
 
 .gridArticle:is(:hover, :focus-visible) {
+	transition-duration: 0ms;
+	color: var(--big-post-text-hover);
+
 	article img {
 		transition-duration: 0ms;
 	}

@@ -163,7 +163,7 @@ function checkPage(name: string): string {
   // this way the switch doesn't flicker on page loads
 
   @media screen and (prefers-color-scheme: dark) {
-    :root {
+    :root:not(.light, .dark) {
       header .themeSwitch > label:before {
         left: 100%;
         transform: translateX(calc((100% + 4px) * -1));
