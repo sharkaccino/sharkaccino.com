@@ -1,5 +1,4 @@
 ---
-import { type GetStaticPaths } from "astro";
 import { getCollection } from 'astro:content';
 import Base from '../../../../../Base.astro';
 import BlogPost from "../../../../../components/blog/BlogPost";
@@ -12,34 +11,40 @@ import SVGIcon from "../../../../../components/SVGIcon";
 
 // TODO: return button component
 
-export const getStaticPaths = (async () => {
-	const posts = await getCollection(`blog`);
+const { year, month, day, postId } = Astro.params;
 
-	posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const yearNum = parseInt(year!);
+const monthNum = parseInt(month!);
+const dayNum = parseInt(day!);
+const postIdNum = parseInt(postId!);
 
-	const output = [];
+if (isNaN(yearNum) || isNaN(monthNum) || isNaN(dayNum) || isNaN(postIdNum)) {
+	return Astro.rewrite(`/404`);
+}
 
-	for (let i = 0; i < posts.length; i++) {
-		const post = posts[i];
-		const pubDate: Date = post.data.pubDate;
-		const dc = getUTCDateComponents(pubDate);
+const posts = await getCollection(`blog`);
 
-		output.push({ 
-			params: {
-				postId: pubDate.getTime(),
-				year: dc.year,
-				month: dc.month,
-				day: dc.day
-			},
-			props: { post }
-		});
+posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+let post = null;
+
+for (const thisPost of posts) {
+	const pubDate: Date = thisPost.data.pubDate;
+	const dc = getUTCDateComponents(pubDate);
+
+	const yearMatches = dc.year == yearNum;
+	const monthMatches = dc.month == monthNum;
+	const dayMatches = dc.day == dayNum;
+	const postIdMatches = pubDate.getTime() == postIdNum;
+
+	if (yearMatches && monthMatches && dayMatches && postIdMatches) {
+		post = thisPost;
 	}
+}
 
-	return output;
-}) satisfies GetStaticPaths;
-
-const { post } = Astro.props;
-
+if (post == null) {
+	return Astro.rewrite(`/404`);
+}
 ---
 
 <Base title={post.data.title}>
