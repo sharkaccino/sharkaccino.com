@@ -19,13 +19,19 @@ const buildTime = new Date(parseInt(buildTimeRaw));
   </a>
   <div class="orientationFlipper">
     <div class="copyrightBlock">
-      <img src="/favicon.svg" />
-      <div>
-        <span>copyright &copy; {new Date().getFullYear()} sharkaccino</span>
-        <span>all rights reserved</span>
-        <span class="flavorText">
-          <FlavorText client:load />
-        </span>
+      <span>copyright &copy; {new Date().getFullYear()} sharkaccino</span>
+      <span>this website is open source! you can check out the repository here:</span>
+      <a href="https://github.com/sharkaccino/sharkaccino.com">
+        https://github.com/sharkaccino/sharkaccino.com
+      </a>
+    </div>
+    <div class="motdBlock">
+      <span class="love">made with <SVGIcon src="/icons/heart-filled.svg" /> by jackie</span>
+      <img src="/sharkaccino/thumb.png" />
+      <div class="flavorText">
+        <span>&ldquo;</span>
+        <FlavorText client:load />
+        <span>&rdquo;</span>
       </div>
     </div>
     <div class="siteMetaBlock">
@@ -47,8 +53,8 @@ const buildTime = new Date(parseInt(buildTimeRaw));
       </div>
     </div>
   </div>
-  <span class="love">made with <SVGIcon src="/icons/heart-filled.svg" /> by jackie</span>
-  <span>no AI/LLM was used in the creation of this website or the content it holds</span>
+  
+  <span>no AI/LLM was used in the creation of this website or the content it provides</span>
 </footer>
 
 <style lang="scss">
@@ -57,7 +63,6 @@ const buildTime = new Date(parseInt(buildTimeRaw));
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 1rem;
     background-color: var(--footer-bg);
     color: var(--footer-text);
     width: 100vw;
@@ -76,53 +81,67 @@ const buildTime = new Date(parseInt(buildTimeRaw));
 
     .orientationFlipper {
       width: 100%;
-      max-width: var(--content-width-small);
+      max-width: var(--content-width-medium);
       padding: 0 var(--content-gap-large);
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-rows: 1fr;
+      grid-template-columns: repeat(3, 1fr);
       align-items: center;
-      justify-content: space-between;
+      gap: calc(var(--content-gap-large) * 2);
       box-sizing: border-box;
+      margin-top: var(--content-gap-large);
+      margin-bottom: var(--content-gap-small);
     }
 
     .copyrightBlock {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      gap: 0.25rem;
+      text-align: center;
+
+      span:first-of-type {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .motdBlock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       img {
         width: 8rem;
         user-select: none;
-        background-color: var(--footer-text);
-        // cursed method of achieving recolorable img while preserving context menu functionality
-        object-position: 100vh 100vh;
-        mask-image: url('/favicon.svg');
+        background-color: currentColor;
+        object-position: 9999px 0;
+        mask-image: url('/sharkaccino/thumb.png');
         mask-mode: luminance;
+        mask-size: cover;
       }
 
-      div {
+      .flavorText {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: initial;
-        width: 16rem;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.25rem;
+        width: 100%;
+        font-style: italic;
+        margin-top: 0.25rem;
 
-        .flavorText {
-          width: 100%;
+        > span {
+          font-size: 2.5rem;
+          transform: translate(-22%, -25%);
+        }
+
+        // :global() needed here to prevent scoping which wont work with solid components
+        :global(a) {
           display: flex;
-          opacity: 0.75;
-          font-style: italic;
-          margin-bottom: -1rem;
-
-          // :global() needed here to prevent scoping which wont work with solid components
-          :global(a) {
-            display: inline-block;
-            color: var(--footer-text);
-            padding: 1rem;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-          }
+          align-items: center;
+          justify-content: center;
+          color: var(--footer-text);
+          text-align: center;
         }
       }
     }
@@ -130,7 +149,6 @@ const buildTime = new Date(parseInt(buildTimeRaw));
     .siteMetaBlock {
       display: flex;
       flex-direction: column;
-      opacity: 0.5;
       gap: 1rem;
 
       div {

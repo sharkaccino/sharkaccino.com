@@ -134,6 +134,7 @@ const CopyTextModal: Component<{children: JSX.Element, text: string, title: stri
             class={style.textField}
             type="text" 
             readonly
+            autocomplete="off"
             onfocus={onTextFocus}
           />
           <button 
