@@ -11,16 +11,13 @@ import SVGIcon from '../components/SVGIcon';
 				<h1>404</h1>
 				<h2>Not Found</h2>
 			</div>
-			<div class="doodle">
-				<img src="/doodle_404.png" />
+			<div class="returnWrapper">
 				<span><NotFoundText client:load /></span>
+				<a href="/" class="linkButton">
+					<SVGIcon src="/icons/chevron-left.svg" />
+					<span>return to home page</span>
+				</a>
 			</div>
-		</div>
-		<div class="returnWrapper">
-			<a href="/" class="linkButton">
-				<SVGIcon src="/icons/chevron-left.svg" />
-				return to home page
-			</a>
 		</div>
 	</div>
 </Base>
@@ -44,52 +41,51 @@ import SVGIcon from '../components/SVGIcon';
 			font-size: 8rem;
 			font-weight: normal;
 			margin: 0;
-			margin-top: -1rem;
+			margin-top: -1.25rem;
 		}
 
 		h2 {
 			margin: 0;
-			margin-top: -2rem;
+			margin-top: -1.5rem;
+			margin-bottom: 0.25rem;
 			font-size: 1.5rem;
 			display: flex;
 			align-items: center;
 		}
 	}
 
-	.doodle {
+	.returnWrapper {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
+		width: 16rem;
+		align-self: stretch;
 
-		// TODO: this doesnt work well in dark mode.
-		img {
-			width: 6rem;
-			mix-blend-mode: multiply;
-			margin-bottom: 1rem;
-		}
-
-		span {
-			max-width: 14rem;
+		> span {
+			display: flex;
+			align-items: center;
 			text-align: center;
 			font-style: italic;
 			opacity: 0.5;
+			flex: 1;
 		}
-	}
-
-	.returnWrapper {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-top: calc(var(--content-gap-medium) * -1);
-		margin-bottom: var(--content-gap-medium);
 
 		a {
+			display: flex;
+			justify-content: center;
 			background-color: var(--trim);
       color: var(--box-bg);
+			height: var(--content-gap-large);
+			align-self: stretch;
 
       &:is(:hover, :focus-visible) {
         background-color: var(--trim-hover);
       }
+
+			span {
+				margin-right: calc(24px + var(--content-gap-small));
+			}
 		}
 	}
 </style>
